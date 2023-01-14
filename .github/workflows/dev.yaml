@@ -19,6 +19,8 @@ jobs:
       with:
         role-to-assume: arn:aws:iam::817806684191:role/github-actions-service-role
         aws-region: us-east-1
+        aws-access-key: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-key: ${{ secrets.AWS_SECRET_KEY }}
 
     - name: Create EB version
       run: |
