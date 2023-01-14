@@ -1,0 +1,25 @@
+name: Deploy to Dev
+on:
+  push:
+    branches:
+    - main
+
+env:
+  ENVIRONMENT: dev
+
+jobs:
+  - name: Configure AWS Credentials
+    uses: aws-actions/configure-aws-credentials@v1
+    with:
+      role-to-assume: arn:aws:iam::817806684191:role/github-actions-service-role
+      aws-region: us-east-1
+
+  - name: Create EB version
+    run: |
+      aws elasticbeanstalk create-application-version --application-name luni --version-label luni-dev.${{ github.run_number }} --source-bundle S3Bucket=sweng-894-capstone-website,S3Key=target/flowcrmtutorial-1.0-SNAPSHOT.jar
+
+  - name: Deploy new version
+    run: |
+      aws elasticbeanstalk update-environment --application-name luni --environment-name Luni-env --version-label luni-dev.${{ github.run_number }}
+
+
