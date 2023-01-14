@@ -23,6 +23,14 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         role-duration-seconds: 1200
 
+    - name: Generate jar
+      run: |
+        mvn package -Pproduction
+
+    - name: Upload jar to s3
+      run: |
+        aws s3 cp ./target/flowcrmtutorial-1.0-SNAPSHOT.jar s3://sweng-894-capstone-website/target/flowcrmtutorial-1.0-SNAPSHOT.jar
+
     - name: Create EB version
       run: |
         aws elasticbeanstalk create-application-version --application-name luni --version-label luni-dev.${{ github.run_number }} --source-bundle S3Bucket=sweng-894-capstone-website,S3Key=target/flowcrmtutorial-1.0-SNAPSHOT.jar
