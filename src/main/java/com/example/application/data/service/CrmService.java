@@ -1,5 +1,6 @@
 package com.example.application.data.service;
 
+import com.example.application.data.entity.CollegeInfo;
 import com.example.application.data.entity.Company;
 import com.example.application.data.entity.Contact;
 import com.example.application.data.entity.Status;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -88,5 +90,21 @@ public class CrmService {
             e.printStackTrace();
         }
 
+    }
+
+    public List<CollegeInfo> getCollegeInfos(){
+        List<CollegeInfo> list = new ArrayList<>();
+        CollegeInfo collegeInfo = new CollegeInfo();
+        collegeInfo.setName("Rose-Hulman");
+        collegeInfo.setLocation("Terre Haute, IN");
+        collegeInfo.setURL("images/rose.png");
+        list.add(collegeInfo);
+
+        CollegeInfo tu = new CollegeInfo();
+        tu.setName("University of Tulsa");
+        tu.setLocation("Tulsa, OK");
+        tu.setURL("images/tu.jpg");
+        list.add(tu);
+        return list;
     }
 }

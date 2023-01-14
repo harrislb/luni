@@ -1,9 +1,9 @@
 package com.example.application.views.list;
 
+import com.example.application.data.entity.CollegeInfo;
 import com.example.application.data.entity.Contact;
 import com.example.application.data.service.CrmService;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
@@ -13,7 +13,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.StreamResource;
+
+import java.util.List;
 
 @Route(value = "")
 @PageTitle("Contacts | Vaadin CRM")
@@ -26,27 +27,31 @@ public class ListView extends VerticalLayout {
 
     public ListView(CrmService service) {
         Image img = new Image("images/luni.png", "banner logo");
-//        img.setWidth("1450px");
-//        img.setHeight("363px");
         img.setWidth("100%");
         add(img);
 
 
-        roseImage.setSrc("images/rose.png");
-        roseImage.setWidth("300px");
-        roseImage.setHeightFull();
-        tuImage.setSrc("images/tu.jpg");
-        tuImage.setWidth("300px");
-        tuImage.setHeightFull();
-        HorizontalLayout collegePics = new HorizontalLayout(roseImage, tuImage);
+//        roseImage.setSrc("images/rose.png");
+//        roseImage.setWidth("300px");
+//        roseImage.setHeightFull();
+//        tuImage.setSrc("images/tu.jpg");
+//        tuImage.setWidth("300px");
+//        tuImage.setHeightFull();
+//        HorizontalLayout collegePics = new HorizontalLayout(roseImage, tuImage);
+
+
 
         this.service = service;
+
+        add(getUniSnaps());
+
         addClassName("list-view");
         setSizeFull();
         configureGrid();
         configureForm();
 
-        add(collegePics, getToolbar(), getContent());
+//        add(collegePics, getToolbar(), getContent());
+        add(getToolbar(), getContent());
         updateList();
     }
 
@@ -70,6 +75,22 @@ public class ListView extends VerticalLayout {
         //grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
         //grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
+    }
+
+    private HorizontalLayout getUniSnaps() {
+        HorizontalLayout uniSnaps = new HorizontalLayout();
+        List<CollegeInfo> colleges = service.getCollegeInfos();
+        for(CollegeInfo college : colleges){
+            UniSnip uniSnip = new UniSnip(college);
+            uniSnaps.add(uniSnip);
+        }
+
+
+       // add(uniSnip);
+
+
+        uniSnaps.addClassName("uniSnaps");
+        return uniSnaps;
     }
 
     private HorizontalLayout getToolbar() {
