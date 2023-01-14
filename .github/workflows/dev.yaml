@@ -25,6 +25,7 @@ jobs:
   jar:
     name: Generate Jar
     runs-on: ubuntu-latest
+    needs: init
     steps:
     - name: Generate jar
       run: |
@@ -33,6 +34,7 @@ jobs:
   deploy:
     name: Deploy to AWS
     runs-on: ubuntu-latest
+    needs: [init,jar]
     steps:
     - name: Upload jar to s3
       run: |
