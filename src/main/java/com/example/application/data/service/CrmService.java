@@ -97,13 +97,13 @@ public class CrmService {
         CollegeInfo collegeInfo = new CollegeInfo();
         collegeInfo.setName("Rose-Hulman");
         collegeInfo.setLocation("Terre Haute, IN");
-        collegeInfo.setURL("images/rose.png");
+        collegeInfo.setURL("/images/rose.png");
         list.add(collegeInfo);
 
         CollegeInfo tu = new CollegeInfo();
         tu.setName("University of Tulsa");
         tu.setLocation("Tulsa, OK");
-        tu.setURL("images/tu.jpg");
+        tu.setURL("/images/tu.jpg");
         list.add(tu);
         return list;
     }
