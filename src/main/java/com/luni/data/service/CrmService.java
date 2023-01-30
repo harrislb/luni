@@ -1,13 +1,13 @@
-package com.example.application.data.service;
+package com.luni.data.service;
 
-import com.example.application.data.entity.CollegeInfo;
-import com.example.application.data.entity.Company;
-import com.example.application.data.entity.Contact;
-import com.example.application.data.entity.Status;
-import com.example.application.data.repository.CollegeRepository;
-import com.example.application.data.repository.CompanyRepository;
-import com.example.application.data.repository.ContactRepository;
-import com.example.application.data.repository.StatusRepository;
+import com.luni.data.entity.CollegeInfo;
+import com.luni.data.entity.Company;
+import com.luni.data.entity.Contact;
+import com.luni.data.entity.Status;
+import com.luni.data.repository.CollegeRepository;
+import com.luni.data.repository.CompanyRepository;
+import com.luni.data.repository.ContactRepository;
+import com.luni.data.repository.StatusRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;

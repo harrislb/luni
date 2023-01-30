@@ -1,6 +1,6 @@
-package com.example.application.data.repository;
+package com.luni.data.repository;
 
-import com.example.application.data.entity.Contact;
+import com.luni.data.entity.Contact;
 
 import java.util.ArrayList;
 import java.util.List;

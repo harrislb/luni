@@ -1,21 +1,11 @@
-package com.example.application.views.list;
+package com.luni.views.list;
 
-import com.example.application.data.entity.CollegeInfo;
-import com.example.application.data.entity.Contact;
-import com.example.application.data.service.CrmService;
-import com.vaadin.flow.component.Component;
+import com.luni.data.entity.CollegeInfo;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
-import java.util.List;
 
 @Route(value = "1")
 @PageTitle("Contacts | Vaadin CRM")
