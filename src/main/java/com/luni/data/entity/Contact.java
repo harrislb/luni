@@ -1,4 +1,4 @@
-package com.example.application.data.entity;
+package com.luni.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Entity;

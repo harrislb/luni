@@ -1,8 +1,8 @@
-package com.example.application.views.list;
+package com.luni.views.list;
 
-import com.example.application.data.entity.CollegeInfo;
-import com.example.application.data.entity.Contact;
-import com.example.application.data.service.CrmService;
+import com.luni.data.entity.CollegeInfo;
+import com.luni.data.entity.Contact;
+import com.luni.data.service.CrmService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -99,9 +99,9 @@ public class ListView extends VerticalLayout {
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
-        Button addContactButton = new Button("Add contact");
+        Button searchNameButton = new Button("Search");
 
-        HorizontalLayout toolbar = new HorizontalLayout(filterText, addContactButton);
+        HorizontalLayout toolbar = new HorizontalLayout(filterText, searchNameButton);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
