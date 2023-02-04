@@ -1,5 +1,6 @@
 package com.luni.data.service;
 
+import com.luni.connection.FilterName;
 import com.luni.data.entity.CollegeInfo;
 import com.luni.data.entity.Company;
 import com.luni.data.entity.Contact;
@@ -106,5 +107,9 @@ public class CrmService {
         tu.setURL("/images/tu.jpg");
         list.add(tu);
         return list;
+    }
+
+    public List<CollegeInfo> getCollegeInfosByName(String name){
+        return FilterName.searchName(name);
     }
 }

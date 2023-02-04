@@ -4,7 +4,12 @@ public class CollegeInfo {
 
     private String name;
     private String location;
-    private String url;
+    // TODO create a default placeholder image
+    private String url = "/images/rose.png";
+
+    public CollegeInfo(){
+
+    }
 
     public void setName(String name){
         this.name = name;
