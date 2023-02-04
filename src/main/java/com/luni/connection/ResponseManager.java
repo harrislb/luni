@@ -4,10 +4,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.util.*;
 
 
 public class ResponseManager {
+
+    public static Map<String, Object> parseJson(HttpURLConnection con){
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line+"\n");
+            }
+            br.close();
+
+            JSONObject jsonObject = new JSONObject(sb.toString()) ;
+            return ResponseManager.jsonToMap(jsonObject);
+        }
+        catch(IOException | JSONException e){
+            e.printStackTrace();
+        }
+
+        return new HashMap<>();
+    }
 
     private static Map<String, Object> _jsonToMap_(JSONObject json) throws JSONException {
         Map<String, Object> retMap = new HashMap<String, Object>();

@@ -32,32 +32,24 @@ public class FilterName {
 
             con.connect();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line+"\n");
+
+
+            Map<String, Object> map =  ResponseManager.parseJson(con);
+            int numResults = ((ArrayList<HashMap>)map.get("results")).size();
+
+            for(int i = 0; i < numResults; i++){
+                String actualName = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("name").toString();
+                String city = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("city").toString();
+                String state = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("state").toString();
+                CollegeInfo collegeInfo = new CollegeInfo();
+                collegeInfo.setName(actualName);
+                collegeInfo.setLocation(city + ", " + state);
+                matches.add(collegeInfo);
             }
-            br.close();
-
-            JSONObject jsonObject = new JSONObject(sb.toString()) ;
-            Map<String, Object> map =  ResponseManager.jsonToMap(jsonObject) ;
-            // TODO remove print statements later, used for testing
-            System.out.println("keys: " + map.keySet());
-            String actualName = ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("name").toString();
-            String city = ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("city").toString();
-            String state = ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("state").toString();
-            System.out.println( ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("city"));
-            System.out.println( ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("state"));
-
-            CollegeInfo collegeInfo = new CollegeInfo();
-            collegeInfo.setName(actualName);
-            collegeInfo.setLocation(city + ", " + state);
-            matches.add(collegeInfo);
-        } catch (JSONException | IOException e) {
+            con.disconnect();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
         return matches;
     }
 
