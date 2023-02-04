@@ -1,5 +1,6 @@
 package com.luni.views.list;
 
+import com.luni.connection.ConnectionManager;
 import com.luni.data.entity.CollegeInfo;
 import com.luni.data.entity.Contact;
 import com.luni.data.service.CrmService;
@@ -25,7 +26,11 @@ public class ListView extends VerticalLayout {
     Image roseImage = new Image();
     Image tuImage = new Image();
 
+    HorizontalLayout uniSnaps;
+
+
     public ListView(CrmService service) {
+        ConnectionManager.loadAPI_Key();
         Image img = new Image("images/luni.png", "banner logo");
         img.setWidth("100%");
         add(img);
@@ -42,8 +47,8 @@ public class ListView extends VerticalLayout {
 
 
         this.service = service;
-
-        add(getUniSnaps());
+        this.uniSnaps = getUniSnaps();
+        add(this.uniSnaps);
 
         addClassName("list-view");
         setSizeFull();
@@ -78,17 +83,31 @@ public class ListView extends VerticalLayout {
     }
 
     private HorizontalLayout getUniSnaps() {
-        HorizontalLayout uniSnaps = new HorizontalLayout();
         List<CollegeInfo> colleges = service.getCollegeInfos();
-        for(CollegeInfo college : colleges){
+        return toSnaps(colleges);
+
+
+//        HorizontalLayout uniSnaps = new HorizontalLayout();
+//        List<CollegeInfo> colleges = service.getCollegeInfos();
+//        for(CollegeInfo college : colleges){
+//            UniSnip uniSnip = new UniSnip(college);
+//            uniSnaps.add(uniSnip);
+//        }
+//
+//
+//       // add(uniSnip);
+//
+//
+//        uniSnaps.addClassName("uniSnaps");
+//        return uniSnaps;
+    }
+
+    private HorizontalLayout toSnaps(List<CollegeInfo> collegeInfos){
+        HorizontalLayout uniSnaps = new HorizontalLayout();
+        for(CollegeInfo college : collegeInfos){
             UniSnip uniSnip = new UniSnip(college);
             uniSnaps.add(uniSnip);
         }
-
-
-       // add(uniSnip);
-
-
         uniSnaps.addClassName("uniSnaps");
         return uniSnaps;
     }
@@ -100,6 +119,13 @@ public class ListView extends VerticalLayout {
         filterText.addValueChangeListener(e -> updateList());
 
         Button searchNameButton = new Button("Search");
+        searchNameButton.addClickListener(clickEvent -> {
+           remove(this.uniSnaps);
+           String nameSearch = filterText.getValue();
+           List<CollegeInfo> collegeInfos = service.getCollegeInfosByName(nameSearch);
+           this.uniSnaps = toSnaps(collegeInfos);
+           add(this.uniSnaps);
+        });
 
         HorizontalLayout toolbar = new HorizontalLayout(filterText, searchNameButton);
         toolbar.addClassName("toolbar");
