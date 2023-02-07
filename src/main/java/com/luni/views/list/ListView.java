@@ -5,6 +5,7 @@ import com.luni.data.entity.CollegeInfo;
 import com.luni.data.entity.Contact;
 import com.luni.data.service.CrmService;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
@@ -34,7 +35,7 @@ public class ListView extends VerticalLayout {
 
     VerticalLayout snapsContainer = new VerticalLayout();
     List<HorizontalLayout> uniSnaps;
-
+   
 
     public ListView(CrmService service) {
         ConnectionManager.loadAPI_Key();
@@ -53,15 +54,18 @@ public class ListView extends VerticalLayout {
 //        tuImage.setHeightFull();
 //        HorizontalLayout collegePics = new HorizontalLayout(roseImage, tuImage);
 
-        add(getToolbar(), getContent());
+        //add(getToolbar(), getContent(), getFilters());
+        
+
 
         this.service = service;
         this.uniSnaps = getUniSnaps();
         for(HorizontalLayout layout : this.uniSnaps){
             snapsContainer.add(layout);
         }
-        add(snapsContainer);
-
+        
+        //add(snapsContainer);
+        add(renderContent(), getToolbar());
         addClassName("list-view");
         setSizeFull();
         configureGrid();
@@ -134,12 +138,34 @@ public class ListView extends VerticalLayout {
     }
 
     private HorizontalLayout getToolbar() {
+
+        Button searchNameButton = new Button("Search");
+        searchNameButton.addClickListener(clickEvent -> {
+           clearUniSnaps();
+           String nameSearch = filterText.getValue();
+           List<CollegeInfo> collegeInfos = service.getCollegeInfosByName(nameSearch);
+           this.uniSnaps = toSnaps(collegeInfos);
+           addUniSnaps(this.uniSnaps);
+        });
+
+        HorizontalLayout toolbar = new HorizontalLayout(searchNameButton);
+        toolbar.addClassName("toolbar");
+        return toolbar;
+    }
+    
+    private HorizontalLayout renderContent() {
+        HorizontalLayout content = new HorizontalLayout(getFilters(), snapsContainer);
+        content.addClassName("mainpage");
+        return content;
+    }
+    
+    private VerticalLayout getFilters() {
         filterText.setPlaceholder("Filter by name...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
-        
-        filterLocText.setPlaceholder("Filter by location...");
+    	
+    	filterLocText.setPlaceholder("Filter by location...");
         filterLocText.setClearButtonVisible(true);
         filterLocText.setValueChangeMode(ValueChangeMode.LAZY);
         filterLocText.addValueChangeListener(e -> updateList());
@@ -157,21 +183,12 @@ public class ListView extends VerticalLayout {
         //checkboxSizeGroup.select("Order ID", "Customer");
         checkboxTuitionGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
         add(checkboxTuitionGroup);
-
-        Button searchNameButton = new Button("Search");
-        searchNameButton.addClickListener(clickEvent -> {
-           clearUniSnaps();
-           String nameSearch = filterText.getValue();
-           List<CollegeInfo> collegeInfos = service.getCollegeInfosByName(nameSearch);
-           this.uniSnaps = toSnaps(collegeInfos);
-           addUniSnaps(this.uniSnaps);
-        });
-
-        HorizontalLayout toolbar = new HorizontalLayout(filterText, filterLocText, searchNameButton);
-        toolbar.addClassName("toolbar");
-        return toolbar;
+        
+    	VerticalLayout filters = new VerticalLayout(filterText, filterLocText, checkboxSizeGroup,checkboxTuitionGroup);
+    	filters.addClassName("filters");
+    	return filters;
     }
-
+    
     private void clearUniSnaps(){
         this.snapsContainer.removeAll();
     }
