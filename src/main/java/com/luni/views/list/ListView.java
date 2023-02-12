@@ -137,9 +137,14 @@ public class ListView extends VerticalLayout {
                collegeInfos = service.getCollegeInfosByLoc(locSearch);
            }
            else if(!checkboxSizeGroup.getSelectedItems().isEmpty()){
-               System.out.println("checking size group");
                int[] minMax = getMinMax(checkboxSizeGroup);
                collegeInfos = service.getCollegeInfosBySize(minMax[0], minMax[1]);
+           }
+           else if(!checkboxTuitionGroup.getSelectedItems().isEmpty()){
+               boolean inState = checkboxTuitionGroup.getSelectedItems().contains("In state?");
+               System.out.println("in state: " + inState);
+               int[] minMax = getMinMax(checkboxTuitionGroup);
+               collegeInfos = service.getCollegeInfosByCost(minMax[0], minMax[1], inState);
            }
            this.uniSnaps = toSnaps(collegeInfos);
            addUniSnaps(this.uniSnaps);
@@ -182,7 +187,7 @@ public class ListView extends VerticalLayout {
         
         checkboxTuitionGroup.setLabel("Tuition Per Semester");
         checkboxTuitionGroup.setItems("In state?", "0-499", "500-999", "1000-4999",
-                "5000-14999", "15000-24999", "25000+");
+                "5000-14999", "15000-19999", "20000-25000");
         //checkboxSizeGroup.select("Order ID", "Customer");
         checkboxTuitionGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
         add(checkboxTuitionGroup);
@@ -197,14 +202,22 @@ public class ListView extends VerticalLayout {
         int min = 999999999;
         int max = -1;
         for(String s : cbg.getSelectedItems()){
-            String[] split = s.split("-");
-            for(String sp : split){
-                int i = Integer.parseInt(sp);
-                if(i < min){
-                    min = i;
-                }
-                if(i > max){
-                    max = i;
+            if(s.contains("+")){
+                s = s.substring(0, s.length()-1);
+                int sInt = Integer.parseInt(s);
+                sInt = sInt * 1000;
+                max = sInt;
+            }
+            if(s.contains("-")){
+                String[] split = s.split("-");
+                for(String sp : split){
+                    int i = Integer.parseInt(sp);
+                    if(i < min){
+                        min = i;
+                    }
+                    if(i > max){
+                        max = i;
+                    }
                 }
             }
         }

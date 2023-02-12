@@ -129,4 +129,44 @@ public class FilterName {
         }
         return matches;
     }
+
+    public static List<CollegeInfo> searchCost(int min, int max, boolean inState){
+        List<CollegeInfo> matches = new ArrayList<>();
+
+        String baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools";
+        Map<String, String> params = new HashMap<>();
+        String rangeString = min + ".." + max;
+        if(inState){
+            params.put("cost.tuition.in_state__range", rangeString);
+
+        }
+        else{
+            params.put("cost.tuition.out_of_state__range", rangeString);
+        }
+        URL url = null;
+        try {
+            url = new URL(ConnectionManager.formatURL(baseURL, params));
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+
+            con.connect();
+
+            Map<String, Object> map =  ResponseManager.parseJson(con);
+            int numResults = ((ArrayList<HashMap>)map.get("results")).size();
+
+            for(int i = 0; i < numResults; i++){
+                String actualName = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("name").toString();
+                String city = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("city").toString();
+                String state = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("state").toString();
+                CollegeInfo collegeInfo = new CollegeInfo();
+                collegeInfo.setName(actualName);
+                collegeInfo.setLocation(city + ", " + state);
+                matches.add(collegeInfo);
+            }
+            con.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return matches;
+    }
 }
