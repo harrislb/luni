@@ -115,4 +115,7 @@ public class CrmService {
     public List<CollegeInfo> getCollegeInfosByLoc(String location){
         return FilterName.searchCity(location);
     }
+    public List<CollegeInfo> getCollegeInfosBySize(int min, int max){
+        return FilterName.searchSize(min, max);
+    }
 }

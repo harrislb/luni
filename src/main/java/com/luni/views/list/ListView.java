@@ -136,6 +136,11 @@ public class ListView extends VerticalLayout {
            else if(!locSearch.isEmpty()){
                collegeInfos = service.getCollegeInfosByLoc(locSearch);
            }
+           else if(!checkboxSizeGroup.getSelectedItems().isEmpty()){
+               System.out.println("checking size group");
+               int[] minMax = getMinMax(checkboxSizeGroup);
+               collegeInfos = service.getCollegeInfosBySize(minMax[0], minMax[1]);
+           }
            this.uniSnaps = toSnaps(collegeInfos);
            addUniSnaps(this.uniSnaps);
         });
@@ -185,6 +190,27 @@ public class ListView extends VerticalLayout {
     	VerticalLayout filters = new VerticalLayout(filterText, filterLocText, checkboxSizeGroup,checkboxTuitionGroup);
     	filters.addClassName("filters");
     	return filters;
+    }
+
+    private int[] getMinMax(CheckboxGroup<String> cbg){
+        int[] minMax = new int[2];
+        int min = 999999999;
+        int max = -1;
+        for(String s : cbg.getSelectedItems()){
+            String[] split = s.split("-");
+            for(String sp : split){
+                int i = Integer.parseInt(sp);
+                if(i < min){
+                    min = i;
+                }
+                if(i > max){
+                    max = i;
+                }
+            }
+        }
+        minMax[0] = min;
+        minMax[1]= max;
+        return minMax;
     }
     
     private void clearUniSnaps(){
