@@ -124,16 +124,29 @@ public class ListView extends VerticalLayout {
 
     private HorizontalLayout getToolbar() {
 
-        Button searchNameButton = new Button("Search");
-        searchNameButton.addClickListener(clickEvent -> {
+        Button searchButton = new Button("Search");
+        searchButton.addClickListener(clickEvent -> {
            clearUniSnaps();
            String nameSearch = filterText.getValue();
-           List<CollegeInfo> collegeInfos = service.getCollegeInfosByName(nameSearch);
+           String locSearch = filterLocText.getValue();
+           List<CollegeInfo> collegeInfos = new ArrayList<>();
+           if(!nameSearch.isEmpty()){
+               collegeInfos = service.getCollegeInfosByName(nameSearch);
+           }
+           else if(!locSearch.isEmpty()){
+               collegeInfos = service.getCollegeInfosByLoc(locSearch);
+           }
            this.uniSnaps = toSnaps(collegeInfos);
            addUniSnaps(this.uniSnaps);
         });
 
-        HorizontalLayout toolbar = new HorizontalLayout(searchNameButton);
+        Button clearButton = new Button("Clear Search");
+        clearButton.addClickListener(clickEvent -> {
+            filterText.clear();
+            filterLocText.clear();
+        });
+
+        HorizontalLayout toolbar = new HorizontalLayout(searchButton, clearButton);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
