@@ -5,7 +5,10 @@ import com.luni.data.entity.CollegeInfo;
 import com.luni.data.entity.Contact;
 import com.luni.data.service.CrmService;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.checkbox.CheckboxGroup;
+import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -23,13 +26,16 @@ import java.util.List;
 public class ListView extends VerticalLayout {
     Grid<Contact> grid = new Grid<>(Contact.class);
     TextField filterText = new TextField();
+    TextField filterLocText = new TextField();
+    CheckboxGroup<String> checkboxSizeGroup = new CheckboxGroup<>();
+    CheckboxGroup<String> checkboxTuitionGroup = new CheckboxGroup<>();
     CrmService service;
     Image roseImage = new Image();
     Image tuImage = new Image();
 
     VerticalLayout snapsContainer = new VerticalLayout();
     List<HorizontalLayout> uniSnaps;
-
+   
 
     public ListView(CrmService service) {
         ConnectionManager.loadAPI_Key();
@@ -48,15 +54,18 @@ public class ListView extends VerticalLayout {
 //        tuImage.setHeightFull();
 //        HorizontalLayout collegePics = new HorizontalLayout(roseImage, tuImage);
 
-        add(getToolbar(), getContent());
+        //add(getToolbar(), getContent(), getFilters());
+        
+
 
         this.service = service;
         this.uniSnaps = getUniSnaps();
         for(HorizontalLayout layout : this.uniSnaps){
             snapsContainer.add(layout);
         }
-        add(snapsContainer);
-
+        
+        //add(snapsContainer);
+        add(renderContent(), getToolbar());
         addClassName("list-view");
         setSizeFull();
         configureGrid();
@@ -114,10 +123,6 @@ public class ListView extends VerticalLayout {
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Filter by name...");
-        filterText.setClearButtonVisible(true);
-        filterText.setValueChangeMode(ValueChangeMode.LAZY);
-        filterText.addValueChangeListener(e -> updateList());
 
         Button searchNameButton = new Button("Search");
         searchNameButton.addClickListener(clickEvent -> {
@@ -128,11 +133,47 @@ public class ListView extends VerticalLayout {
            addUniSnaps(this.uniSnaps);
         });
 
-        HorizontalLayout toolbar = new HorizontalLayout(filterText, searchNameButton);
+        HorizontalLayout toolbar = new HorizontalLayout(searchNameButton);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
-
+    
+    private HorizontalLayout renderContent() {
+        HorizontalLayout content = new HorizontalLayout(getFilters(), snapsContainer);
+        content.addClassName("mainpage");
+        return content;
+    }
+    
+    private VerticalLayout getFilters() {
+        filterText.setPlaceholder("Filter by name...");
+        filterText.setClearButtonVisible(true);
+        filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.addValueChangeListener(e -> updateList());
+    	
+    	filterLocText.setPlaceholder("Filter by location...");
+        filterLocText.setClearButtonVisible(true);
+        filterLocText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterLocText.addValueChangeListener(e -> updateList());
+        
+        checkboxSizeGroup.setLabel("Size");
+        checkboxSizeGroup.setItems("0-499", "500-999", "1000-4999",
+                "5000-14999", "15000-34999", "35000-54999", "55000+");
+        //checkboxSizeGroup.select("Order ID", "Customer");
+        checkboxSizeGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
+        add(checkboxSizeGroup);
+        
+        checkboxTuitionGroup.setLabel("Tuition Per Semester");
+        checkboxTuitionGroup.setItems("In state?", "0-499", "500-999", "1000-4999",
+                "5000-14999", "15000-24999", "25000+");
+        //checkboxSizeGroup.select("Order ID", "Customer");
+        checkboxTuitionGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
+        add(checkboxTuitionGroup);
+        
+    	VerticalLayout filters = new VerticalLayout(filterText, filterLocText, checkboxSizeGroup,checkboxTuitionGroup);
+    	filters.addClassName("filters");
+    	return filters;
+    }
+    
     private void clearUniSnaps(){
         this.snapsContainer.removeAll();
     }
