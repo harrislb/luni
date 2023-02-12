@@ -110,6 +110,6 @@ public class CrmService {
     }
 
     public List<CollegeInfo> getCollegeInfosByName(String name){
-        return FilterName.searchName(name);
+        return FilterName.searchCity(name);
     }
 }

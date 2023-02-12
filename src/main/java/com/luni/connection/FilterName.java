@@ -53,5 +53,48 @@ public class FilterName {
         return matches;
     }
 
+    public static List<CollegeInfo> searchCity(String searchCity){
+        Map<String, String> params = new HashMap<>();
+        // see if they included a state
+        if(searchCity.contains(", ")){
+            int commaIndex = searchCity.indexOf(",") + 1;
+            if(searchCity.length() > commaIndex + 1){
+                String state = searchCity.substring(commaIndex + 1);
+                params.put("school.state", state);
+            }
+        }
+        // remove any space from name to format for URL
+        searchCity = searchCity.replace(' ', '-');
+        List<CollegeInfo> matches = new ArrayList<>();
 
+        String baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools";
+        params.put("school.city", searchCity);
+        URL url = null;
+        try {
+            url = new URL(ConnectionManager.formatURL(baseURL, params));
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+
+            con.connect();
+
+
+
+            Map<String, Object> map =  ResponseManager.parseJson(con);
+            int numResults = ((ArrayList<HashMap>)map.get("results")).size();
+
+            for(int i = 0; i < numResults; i++){
+                String name = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("name").toString();
+                String city = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("city").toString();
+                String state = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("state").toString();
+                CollegeInfo collegeInfo = new CollegeInfo();
+                collegeInfo.setName(name);
+                collegeInfo.setLocation(city + ", " + state);
+                matches.add(collegeInfo);
+            }
+            con.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return matches;
+    }
 }

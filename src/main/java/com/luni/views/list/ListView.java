@@ -91,21 +91,6 @@ public class ListView extends VerticalLayout {
     private List<HorizontalLayout> getUniSnaps() {
         List<CollegeInfo> colleges = service.getCollegeInfos();
         return toSnaps(colleges);
-
-
-//        HorizontalLayout uniSnaps = new HorizontalLayout();
-//        List<CollegeInfo> colleges = service.getCollegeInfos();
-//        for(CollegeInfo college : colleges){
-//            UniSnip uniSnip = new UniSnip(college);
-//            uniSnaps.add(uniSnip);
-//        }
-//
-//
-//       // add(uniSnip);
-//
-//
-//        uniSnaps.addClassName("uniSnaps");
-//        return uniSnaps;
     }
 
     private List<HorizontalLayout> toSnaps(List<CollegeInfo> collegeInfos){

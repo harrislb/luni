@@ -52,15 +52,13 @@ public class TestParseJSON {
         Map<String, Object> map = ResponseManager.parseJson(con);
 
         int numResults = ((ArrayList<HashMap>)map.get("results")).size();
+        Assert.assertEquals(10, numResults);
 
-
-        // TODO remove print statements later, used for testing
-        System.out.println("keys: " + map.keySet());
-        System.out.println( ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("city"));
-        System.out.println( ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("state"));
+        Assert.assertEquals("MA", ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("state"));
         Assert.assertEquals("Boston", ((HashMap)((HashMap)((List)map.get("results")).get(0)).get("school")).get("city"));
 
+
+        Assert.assertEquals("MA", ((HashMap)((HashMap)((List)map.get("results")).get(9)).get("school")).get("state"));
+        Assert.assertEquals("Boston", ((HashMap)((HashMap)((List)map.get("results")).get(9)).get("school")).get("city"));
     }
-
-
 }
