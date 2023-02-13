@@ -101,7 +101,14 @@ public class FilterParams {
             con.connect();
 
             Map<String, Object> map =  ResponseManager.parseJson(con);
-            int numResults = ((ArrayList<HashMap>)map.get("results")).size();
+
+            int numResults;
+            if(((ArrayList<HashMap>)map.get("results")) != null){
+                numResults = ((ArrayList<HashMap>)map.get("results")).size();
+            }
+            else{
+                numResults = 0;
+            }
 
             for(int i = 0; i < numResults; i++){
                 String name = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("name").toString();
