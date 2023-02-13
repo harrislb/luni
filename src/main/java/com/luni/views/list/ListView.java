@@ -29,6 +29,7 @@ public class ListView extends VerticalLayout {
     TextField filterLocText = new TextField();
     CheckboxGroup<String> checkboxSizeGroup = new CheckboxGroup<>();
     CheckboxGroup<String> checkboxTuitionGroup = new CheckboxGroup<>();
+    CheckboxGroup<String> checkboxACTGroup = new CheckboxGroup<>();
     CrmService service;
     Image roseImage = new Image();
     Image tuImage = new Image();
@@ -65,7 +66,7 @@ public class ListView extends VerticalLayout {
         }
         
         //add(snapsContainer);
-        add(renderContent(), getToolbar());
+        add(renderContent());
         addClassName("list-view");
         setSizeFull();
         configureGrid();
@@ -142,9 +143,12 @@ public class ListView extends VerticalLayout {
            }
            else if(!checkboxTuitionGroup.getSelectedItems().isEmpty()){
                boolean inState = checkboxTuitionGroup.getSelectedItems().contains("In state?");
-               System.out.println("in state: " + inState);
                int[] minMax = getMinMax(checkboxTuitionGroup);
                collegeInfos = service.getCollegeInfosByCost(minMax[0], minMax[1], inState);
+           }
+           else if(!checkboxACTGroup.getSelectedItems().isEmpty()){
+               int[] minMax = getMinMax(checkboxACTGroup);
+               collegeInfos = service.getCollegeInfosByACT(minMax[0], minMax[1]);
            }
            this.uniSnaps = toSnaps(collegeInfos);
            addUniSnaps(this.uniSnaps);
@@ -154,6 +158,9 @@ public class ListView extends VerticalLayout {
         clearButton.addClickListener(clickEvent -> {
             filterText.clear();
             filterLocText.clear();
+            checkboxSizeGroup.clear();
+            checkboxTuitionGroup.clear();
+            checkboxACTGroup.clear();
         });
 
         HorizontalLayout toolbar = new HorizontalLayout(searchButton, clearButton);
@@ -183,16 +190,17 @@ public class ListView extends VerticalLayout {
                 "5000-14999", "15000-34999", "35000-54999", "55000+");
         //checkboxSizeGroup.select("Order ID", "Customer");
         checkboxSizeGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
-        add(checkboxSizeGroup);
-        
+
         checkboxTuitionGroup.setLabel("Tuition Per Semester");
         checkboxTuitionGroup.setItems("In state?", "0-499", "500-999", "1000-4999",
                 "5000-14999", "15000-19999", "20000-25000");
-        //checkboxSizeGroup.select("Order ID", "Customer");
         checkboxTuitionGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
-        add(checkboxTuitionGroup);
-        
-    	VerticalLayout filters = new VerticalLayout(filterText, filterLocText, checkboxSizeGroup,checkboxTuitionGroup);
+
+        checkboxACTGroup.setLabel("Cumulative ACT Score Midpoint");
+        checkboxACTGroup.setItems("20-24", "25-29", "30-32", "33-34", "35-36");
+        checkboxACTGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
+
+    	VerticalLayout filters = new VerticalLayout(filterText, filterLocText, checkboxSizeGroup,checkboxTuitionGroup, checkboxACTGroup, getToolbar());
     	filters.addClassName("filters");
     	return filters;
     }

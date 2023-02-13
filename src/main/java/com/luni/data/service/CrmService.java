@@ -121,4 +121,7 @@ public class CrmService {
     public List<CollegeInfo> getCollegeInfosByCost(int min, int max, boolean inState){
         return FilterName.searchCost(min, max, inState);
     }
+    public List<CollegeInfo> getCollegeInfosByACT(int min, int max){
+        return FilterName.searchACT(min, max);
+    }
 }
