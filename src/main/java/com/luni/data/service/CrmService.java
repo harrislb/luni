@@ -1,6 +1,6 @@
 package com.luni.data.service;
 
-import com.luni.connection.FilterName;
+import com.luni.connection.FilterParams;
 import com.luni.data.entity.CollegeInfo;
 import com.luni.data.entity.Company;
 import com.luni.data.entity.Contact;
@@ -110,18 +110,18 @@ public class CrmService {
     }
 
     public List<CollegeInfo> getCollegeInfosByName(String name){
-        return FilterName.searchName(name);
+        return FilterParams.searchName(name);
     }
     public List<CollegeInfo> getCollegeInfosByLoc(String location){
-        return FilterName.searchCity(location);
+        return FilterParams.searchCity(location);
     }
     public List<CollegeInfo> getCollegeInfosBySize(int min, int max){
-        return FilterName.searchSize(min, max);
+        return FilterParams.searchSize(min, max);
     }
     public List<CollegeInfo> getCollegeInfosByCost(int min, int max, boolean inState){
-        return FilterName.searchCost(min, max, inState);
+        return FilterParams.searchCost(min, max, inState);
     }
     public List<CollegeInfo> getCollegeInfosByACT(int min, int max){
-        return FilterName.searchACT(min, max);
+        return FilterParams.searchACT(min, max);
     }
 }
