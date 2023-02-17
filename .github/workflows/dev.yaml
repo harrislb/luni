@@ -23,6 +23,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
         role-duration-seconds: 1200
 
+    - name: Unlock key
+      run: |
+        git-crypt unlock
+   
     - name: Generate jar
       run: |
         mvn package -Pproduction
