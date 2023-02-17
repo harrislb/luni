@@ -25,6 +25,7 @@ jobs:
 
     - name: Unlock key
       run: |
+        brew install git-crypt
         git-crypt unlock
    
     - name: Generate jar
