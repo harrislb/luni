@@ -25,7 +25,12 @@ jobs:
 
     - name: Unlock key
       run: |
-        brew install git-crypt
+        git clone https://www.agwa.name/git/git-crypt.git
+        cd git-crypt
+        make
+        make install
+
+
         git-crypt unlock
    
     - name: Generate jar
