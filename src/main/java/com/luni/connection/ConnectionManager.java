@@ -15,7 +15,7 @@ public class ConnectionManager {
         try {
             // TODO will need to implement this on the server side so we can run once we have CICD running.
             // store the API key in a local file for now; do not publish to repo
-            reader = new BufferedReader(new FileReader("./luni.txt"));
+            reader = new BufferedReader(new FileReader("C:\\Users\\Public\\Documents\\luni.txt"));
             String line = reader.readLine();
             reader.close();
             // set the API Key

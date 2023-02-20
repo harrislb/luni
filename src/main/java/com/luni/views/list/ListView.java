@@ -4,13 +4,16 @@ import com.luni.connection.ConnectionManager;
 import com.luni.data.entity.CollegeInfo;
 import com.luni.data.entity.Contact;
 import com.luni.data.service.CrmService;
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -40,9 +43,20 @@ public class ListView extends VerticalLayout {
 
     public ListView(CrmService service) {
         ConnectionManager.loadAPI_Key();
+       initializeHomePage(service);
+    }
+
+    private void initializeHomePage(CrmService service){
         Image img = new Image("images/luni.png", "banner logo");
         img.setWidth("100%");
         add(img);
+        //TODO reuse the button so we don't have to garbage collect
+        Button button = new Button("Comparison Page!");
+        button.addClickListener(clickEvent -> {
+            clearPage();
+            initializeComparisonPage(service);
+        });
+        add(button);
 
         snapsContainer.setHeightFull();
 
@@ -56,7 +70,7 @@ public class ListView extends VerticalLayout {
 //        HorizontalLayout collegePics = new HorizontalLayout(roseImage, tuImage);
 
         //add(getToolbar(), getContent(), getFilters());
-        
+
 
 
         this.service = service;
@@ -64,7 +78,7 @@ public class ListView extends VerticalLayout {
         for(HorizontalLayout layout : this.uniSnaps){
             snapsContainer.add(layout);
         }
-        
+
         //add(snapsContainer);
         add(renderContent());
         addClassName("list-view");
@@ -74,6 +88,20 @@ public class ListView extends VerticalLayout {
 
 //        add(collegePics, getToolbar(), getContent());
         updateList();
+    }
+
+    private void initializeComparisonPage(CrmService service){
+        Button button = new Button("Home Page");
+        button.addClickListener(clickEvent -> {
+            clearPage();
+            initializeHomePage(service);
+
+        });
+        add(button);
+    }
+
+    private void clearPage(){
+        this.removeAll();
     }
 
     private Component getContent() {
