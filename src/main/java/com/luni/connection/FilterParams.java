@@ -99,6 +99,7 @@ public class FilterParams {
             con.setRequestMethod("GET");
 
             con.connect();
+            System.out.println(con.getResponseMessage());
 
             Map<String, Object> map =  ResponseManager.parseJson(con);
 
