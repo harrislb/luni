@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Route(value = "")
-@PageTitle("Contacts | Vaadin CRM")
+@PageTitle("College Search | Compare Colleges")
 public class ListView extends VerticalLayout {
     Grid<Contact> grid = new Grid<>(Contact.class);
     TextField filterText = new TextField();
@@ -34,8 +34,6 @@ public class ListView extends VerticalLayout {
     CheckboxGroup<String> checkboxTuitionGroup = new CheckboxGroup<>();
     CheckboxGroup<String> checkboxACTGroup = new CheckboxGroup<>();
     CrmService service;
-    Image roseImage = new Image();
-    Image tuImage = new Image();
 
     VerticalLayout snapsContainer = new VerticalLayout();
     List<HorizontalLayout> uniSnaps;
@@ -91,6 +89,9 @@ public class ListView extends VerticalLayout {
     }
 
     private void initializeComparisonPage(CrmService service){
+        Image img = new Image("images/luni.png", "banner logo");
+        img.setWidth("100%");
+        add(img);
         Button button = new Button("Home Page");
         button.addClickListener(clickEvent -> {
             clearPage();
@@ -98,6 +99,7 @@ public class ListView extends VerticalLayout {
 
         });
         add(button);
+        add(renderComparisonContent());
     }
 
     private void clearPage(){
@@ -131,7 +133,7 @@ public class ListView extends VerticalLayout {
         return toSnaps(colleges);
     }
 
-    private List<HorizontalLayout> toSnaps(List<CollegeInfo> collegeInfos){
+    public static List<HorizontalLayout> toSnaps(List<CollegeInfo> collegeInfos){
         List<HorizontalLayout> list = new ArrayList<>();
         HorizontalLayout uniSnaps = new HorizontalLayout();
         uniSnaps.addClassName("uniSnaps");
@@ -274,6 +276,16 @@ public class ListView extends VerticalLayout {
 
     private void updateList() {
         grid.setItems(service.findAllContacts(filterText.getValue()));
+    }
+
+    private HorizontalLayout renderComparisonContent(){
+        HorizontalLayout comparisonLayout = new HorizontalLayout();
+        VerticalLayout compare1 = new ComparisonColumn(service).getComparisonContent();
+        VerticalLayout compare2 = new ComparisonColumn(service).getComparisonContent();
+
+        comparisonLayout.add(compare1);
+        compare1.add(compare2);
+        return comparisonLayout;
     }
 
     /**
