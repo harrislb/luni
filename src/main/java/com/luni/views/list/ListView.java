@@ -284,7 +284,7 @@ public class ListView extends VerticalLayout {
         VerticalLayout compare2 = new ComparisonColumn(service).getComparisonContent();
 
         comparisonLayout.add(compare1);
-        compare1.add(compare2);
+        comparisonLayout.add(compare2);
         return comparisonLayout;
     }
 

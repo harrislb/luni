@@ -15,6 +15,7 @@ import java.util.List;
 public class ComparisonColumn {
 
     private VerticalLayout layout = new VerticalLayout();
+    private VerticalLayout emptyLayout = new VerticalLayout();
 
     private TextField nameTextField = new TextField();
     private Button addBuutton = new Button();
@@ -33,10 +34,13 @@ public class ComparisonColumn {
         layout.add(searchLayout);
 
         addBuutton.addClickListener((ComponentEventListener<ClickEvent<Button>>) buttonClickEvent -> {
+        	layout.removeAll();
+        	layout.add(searchLayout);
             List<CollegeInfo> colleges = service.getCollegeInfosByName(nameTextField.getValue());
             if(colleges != null && !colleges.isEmpty()){
                 CompareSnip compareSnip = new CompareSnip(colleges.get(0));
                 layout.add(compareSnip);
+                layout.add(compareSnip.getComparisonContent());
             }
         });
 
