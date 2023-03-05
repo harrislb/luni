@@ -7,19 +7,39 @@ import java.util.Map;
 
 public class ConnectionManager {
 
-    public static String API_KEY;
+    public static String API_KEY = "";
+    public static String IMAGE_API_KEY = "";
+    public static String CX_KEY = "";
 
     public static String loadAPI_Key(){
         BufferedReader reader;
+        BufferedReader imageReader;
+        BufferedReader cxReader;
 
         try {
             // TODO will need to implement this on the server side so we can run once we have CICD running.
             // store the API key in a local file for now; do not publish to repo
             reader = new BufferedReader(new FileReader("./api-key.txt"));
+//            reader = new BufferedReader(new FileReader("C:\\Users\\Public\\Documents\\luni.txt"));
+//            imageReader = new BufferedReader(new FileReader("C:\\Users\\Public\\Documents\\luni-image.txt"));
+//            cxReader = new BufferedReader(new FileReader("C:\\Users\\Public\\Documents\\luni-cx.txt"));
+
+
             String line = reader.readLine();
             reader.close();
             // set the API Key
             API_KEY = line;
+
+//            // set the image API Key
+//            IMAGE_API_KEY = imageReader.readLine();
+//            imageReader.close();
+
+//
+//            // set the cx API key
+//            CX_KEY = cxReader.readLine();
+//            cxReader.close();
+
+
             return line;
 
         } catch (IOException e) {

@@ -9,15 +9,19 @@ public class CompareSnip extends UniSnip{
 
     private final Text size = new Text("Size: ");
     private final Text act = new Text("Midpoint Cumulative ACT Score: ");
-    private final Text cost = new Text("Cost: " );
+    private final Text inStateCost = new Text("In State Cost: " );
+    private final Text outStateCost = new Text("Out of State Cost: " );
+
     private VerticalLayout layout = new VerticalLayout();
-    private HorizontalLayout costLayout = new HorizontalLayout();
+    private HorizontalLayout inStateCostLayout = new HorizontalLayout();
+    private HorizontalLayout outStateCostLayout = new HorizontalLayout();
     private HorizontalLayout sizeLayout = new HorizontalLayout();
     private HorizontalLayout actLayout = new HorizontalLayout();
 
     private Text sizeValue;
     private Text actValue;
-    private Text costValue;
+    private Text inStateCostValue;
+    private Text outStateCostValue;
 
     public CompareSnip(CollegeInfo collegeInfo) {
         super(collegeInfo);
@@ -27,16 +31,22 @@ public class CompareSnip extends UniSnip{
         //add(sizeValue);
 
         this.actValue = new Text(collegeInfo.getACT() + "");
+        if(actValue.getText() == "0"){
+            actValue.setText("N/A");
+        }
         //add(act);
         //add(actValue);
 
-        // TODO account for in vs out of state cost
-        this.costValue = new Text(collegeInfo.getOutOfStateCost() + "");
+        this.inStateCostValue = new Text(collegeInfo.getIinStateCost() + "");
         //add(cost);
         //add(costValue);
+        this.outStateCostValue = new Text(collegeInfo.getOutOfStateCost() + "");
         
-        costLayout.add(cost);
-        costLayout.add(costValue);
+        inStateCostLayout.add(inStateCost);
+        inStateCostLayout.add(inStateCostValue);
+
+        outStateCostLayout.add(outStateCost);
+        outStateCostLayout.add(outStateCostValue);
         
         sizeLayout.add(size);
         sizeLayout.add(sizeValue);
@@ -44,7 +54,8 @@ public class CompareSnip extends UniSnip{
         actLayout.add(act);
         actLayout.add(actValue);
         
-        layout.add(costLayout);
+        layout.add(inStateCostLayout);
+        layout.add(outStateCostLayout);
         layout.add(sizeLayout);
         layout.add(actLayout);
         

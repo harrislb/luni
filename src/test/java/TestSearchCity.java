@@ -1,5 +1,7 @@
 import com.luni.connection.ConnectionManager;
 import com.luni.connection.ResponseManager;
+import com.luni.data.entity.CollegeInfo;
+import com.luni.data.service.CrmService;
 import org.h2.util.json.JSONNull;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,5 +55,13 @@ public class TestSearchCity {
         catch(Exception e){
             // no cumulative data available
         }
+    }
+
+    @Test
+    public void testSearchCityAndState() throws IOException, JSONException {
+        ConnectionManager.loadAPI_Key();
+        CrmService crmService = new CrmService();
+       List<CollegeInfo> colleges = crmService.getCollegeInfosByLoc("Boston, MA");
+       Assert.assertNotEquals(0, colleges.size());
     }
 }

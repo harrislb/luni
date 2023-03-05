@@ -1,5 +1,6 @@
 package com.luni.connection;
 
+import com.luni.data.ImageSearch;
 import com.luni.data.entity.CollegeInfo;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class FilterParams {
                 String state = searchCity.substring(commaIndex + 1);
                 params.put("school.state", state);
             }
+            searchCity = searchCity.substring(0, commaIndex - 1);
         }
         // remove any space from name to format for URL
         searchCity = searchCity.replace(' ', '-');
@@ -111,6 +113,11 @@ public class FilterParams {
                 numResults = 0;
             }
 
+            //TODO manage # of queries
+            if(numResults > 7){
+                numResults = 7;
+            }
+
             for(int i = 0; i < numResults; i++){
                 String name = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("name").toString();
                 String city = ((HashMap)((HashMap)((List)map.get("results")).get(i)).get("school")).get("city").toString();
@@ -118,6 +125,8 @@ public class FilterParams {
                 CollegeInfo collegeInfo = new CollegeInfo();
                 collegeInfo.setName(name);
                 collegeInfo.setLocation(city + ", " + state);
+                // TODO use this for image search
+//                collegeInfo.setURL(ImageSearch.getImage(name + " main"));
 
                 try{
                     int outOfStateCost = (int) ((HashMap)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(0)).get("latest")).get("cost")).get("tuition")).get("out_of_state");
