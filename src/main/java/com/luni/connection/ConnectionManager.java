@@ -31,13 +31,12 @@ public class ConnectionManager {
             API_KEY = line;
 
 //            // set the image API Key
-//            IMAGE_API_KEY = imageReader.readLine();
-//            imageReader.close();
-
+            IMAGE_API_KEY = imageReader.readLine();
+            imageReader.close();
 //
 //            // set the cx API key
-//            CX_KEY = cxReader.readLine();
-//            cxReader.close();
+            CX_KEY = cxReader.readLine();
+            cxReader.close();
 
 
             return line;

@@ -13,7 +13,12 @@ import java.util.Map;
 
 public class FilterParams {
 
-    public static List<CollegeInfo> searchName(String name){
+    public static int MAX_RESULTS = 8;
+
+    public static List<CollegeInfo> searchName(String name, int maxResults){
+        if(maxResults == -1){
+            maxResults = MAX_RESULTS;
+        }
         // remove any space from name to format for URL
         name = name.replace(' ', '-');
         List<CollegeInfo> matches = new ArrayList<>();
@@ -21,7 +26,7 @@ public class FilterParams {
         String baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools";
         Map<String, String> params = new HashMap<>();
         params.put("school.name", name);
-        matches = queryCollegeInfos(baseURL, params);
+        matches = queryCollegeInfos(baseURL, params, maxResults);
 
         return matches;
     }
@@ -43,7 +48,7 @@ public class FilterParams {
 
         String baseURL = "https://api.data.gov/ed/collegescorecard/v1/schools";
         params.put("school.city", searchCity);
-        matches = queryCollegeInfos(baseURL, params);
+        matches = queryCollegeInfos(baseURL, params, MAX_RESULTS);
 
         return matches;
     }
@@ -56,7 +61,7 @@ public class FilterParams {
         String rangeString = min + ".." + max;
         params.put("latest.student.size__range", rangeString);
 
-        matches = queryCollegeInfos(baseURL, params);
+        matches = queryCollegeInfos(baseURL, params, MAX_RESULTS);
 
         return matches;
     }
@@ -74,7 +79,7 @@ public class FilterParams {
         else{
             params.put("cost.tuition.out_of_state__range", rangeString);
         }
-        matches = queryCollegeInfos(baseURL, params);
+        matches = queryCollegeInfos(baseURL, params, MAX_RESULTS);
 
         return matches;
     }
@@ -87,12 +92,12 @@ public class FilterParams {
         String rangeString = min + ".." + max;
         params.put("admissions.act_scores.midpoint.cumulative", rangeString);
 
-        matches = queryCollegeInfos(baseURL, params);
+        matches = queryCollegeInfos(baseURL, params, MAX_RESULTS);
 
         return matches;
     }
 
-    public static List<CollegeInfo> queryCollegeInfos(String baseURL, Map<String, String> params){
+    public static List<CollegeInfo> queryCollegeInfos(String baseURL, Map<String, String> params, int maxResults){
         List<CollegeInfo> matches = new ArrayList<>();
         URL url = null;
         try {
@@ -114,8 +119,8 @@ public class FilterParams {
             }
 
             //TODO manage # of queries
-            if(numResults > 7){
-                numResults = 7;
+            if(numResults > maxResults){
+                numResults = maxResults;
             }
 
             for(int i = 0; i < numResults; i++){

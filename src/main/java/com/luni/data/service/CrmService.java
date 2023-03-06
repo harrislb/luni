@@ -116,8 +116,8 @@ public class CrmService {
         return list;
     }
 
-    public List<CollegeInfo> getCollegeInfosByName(String name){
-        return verifyResults(FilterParams.searchName(name));
+    public List<CollegeInfo> getCollegeInfosByName(String name, int maxResults){
+        return verifyResults(FilterParams.searchName(name, maxResults));
     }
     public List<CollegeInfo> getCollegeInfosByLoc(String location){
         return verifyResults(FilterParams.searchCity(location));

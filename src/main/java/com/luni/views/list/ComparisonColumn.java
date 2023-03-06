@@ -14,18 +14,13 @@ import java.util.List;
 
 public class ComparisonColumn {
 
-    private VerticalLayout layout = new VerticalLayout();
-    private VerticalLayout emptyLayout = new VerticalLayout();
+    private final VerticalLayout layout = new VerticalLayout();
 
-    private TextField nameTextField = new TextField();
-    private Button addBuutton = new Button();
-    private UniSnip uniSnip;
-
-    private CrmService service;
+    private final TextField nameTextField = new TextField();
 
     public ComparisonColumn(CrmService service){
-        this.service = service;
         nameTextField.setPlaceholder("Type school name...");
+        Button addBuutton = new Button();
         addBuutton.setText("Add");
 
         HorizontalLayout searchLayout = new HorizontalLayout();
@@ -36,7 +31,7 @@ public class ComparisonColumn {
         addBuutton.addClickListener((ComponentEventListener<ClickEvent<Button>>) buttonClickEvent -> {
         	layout.removeAll();
         	layout.add(searchLayout);
-            List<CollegeInfo> colleges = service.getCollegeInfosByName(nameTextField.getValue());
+            List<CollegeInfo> colleges = service.getCollegeInfosByName(nameTextField.getValue(), 1);
             if(colleges != null && !colleges.isEmpty()){
                 CompareSnip compareSnip = new CompareSnip(colleges.get(0));
                 layout.add(compareSnip);

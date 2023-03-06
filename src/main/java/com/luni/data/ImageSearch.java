@@ -5,6 +5,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.luni.connection.ConnectionManager;
@@ -12,9 +13,15 @@ import com.luni.connection.ResponseManager;
 
 public class ImageSearch {
 
+    private static Map<String, String>  imageMap = new HashMap<>();
+
 
     public static String getImage(String searchText) {
         String imageUrl = "";
+
+        if(imageMap.get(searchText.toLowerCase()) != null){
+            return imageMap.get(searchText.toLowerCase());
+        }
 
         try{
             // Replace with your own API key and search engine ID
@@ -35,6 +42,9 @@ public class ImageSearch {
             Map<String, Object> map =  ResponseManager.parseJson(con);
 
             imageUrl = ((String)((HashMap)((List)map.get("items")).get(0)).get("link"));
+            //  cache image
+            imageMap.put(searchText.toLowerCase(), imageUrl);
+            System.out.println(searchText.toLowerCase() + ", " + imageUrl);
             con.disconnect();
 
         }

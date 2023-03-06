@@ -162,7 +162,7 @@ public class ListView extends VerticalLayout {
            String locSearch = filterLocText.getValue();
            List<CollegeInfo> collegeInfos = new ArrayList<>();
            if(!nameSearch.isEmpty()){
-               collegeInfos = service.getCollegeInfosByName(nameSearch);
+               collegeInfos = service.getCollegeInfosByName(nameSearch, -1);
            }
            else if(!locSearch.isEmpty()){
                collegeInfos = service.getCollegeInfosByLoc(locSearch);
