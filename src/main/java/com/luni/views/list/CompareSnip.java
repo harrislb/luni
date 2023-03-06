@@ -23,8 +23,11 @@ public class CompareSnip extends UniSnip{
     private Text inStateCostValue;
     private Text outStateCostValue;
 
+    private CollegeInfo collegeInfo;
+
     public CompareSnip(CollegeInfo collegeInfo) {
         super(collegeInfo);
+        this.collegeInfo = collegeInfo;
 
         this.sizeValue = new Text(collegeInfo.getSize() + "");
         //add(size);
@@ -37,7 +40,7 @@ public class CompareSnip extends UniSnip{
         //add(act);
         //add(actValue);
 
-        this.inStateCostValue = new Text(collegeInfo.getIinStateCost() + "");
+        this.inStateCostValue = new Text(collegeInfo.getInStateCost() + "");
         //add(cost);
         //add(costValue);
         this.outStateCostValue = new Text(collegeInfo.getOutOfStateCost() + "");
@@ -62,6 +65,10 @@ public class CompareSnip extends UniSnip{
     }
     public VerticalLayout getComparisonContent(){
         return this.layout;
+    }
+
+    public CollegeInfo getCollegeInfo(){
+        return this.collegeInfo;
     }
 }
 

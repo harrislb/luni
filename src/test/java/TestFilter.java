@@ -115,7 +115,7 @@ public class TestFilter {
         Assert.assertNotEquals(0, collegeInfoList.size());
 
         // in state cost
-        cost = collegeInfoList.get(0).getIinStateCost();
+        cost = collegeInfoList.get(0).getInStateCost();
         isValid = cost < 14999 && cost > 4999;
         Assert.assertTrue(isValid);
     }
@@ -143,7 +143,7 @@ public class TestFilter {
         Assert.assertNotNull(collegeInfoList);
         Assert.assertNotEquals(0, collegeInfoList.size());
 
-        cost = collegeInfoList.get(0).getIinStateCost();
+        cost = collegeInfoList.get(0).getInStateCost();
         isValid = cost < 14999 && cost > 4999;
         Assert.assertTrue(isValid);
     }
