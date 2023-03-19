@@ -63,7 +63,7 @@ public class CollegeInfo {
         this.outOfStateCost = outOfStateCost;
     }
 
-    public int getIinStateCost(){
+    public int getInStateCost(){
         return this.inStateCost;
     }
 

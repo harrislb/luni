@@ -14,40 +14,58 @@ import java.util.List;
 
 public class ComparisonColumn {
 
-    private VerticalLayout layout = new VerticalLayout();
-    private VerticalLayout emptyLayout = new VerticalLayout();
+    private final VerticalLayout layout = new VerticalLayout();
 
-    private TextField nameTextField = new TextField();
-    private Button addBuutton = new Button();
-    private UniSnip uniSnip;
+    private final TextField nameTextField = new TextField();
 
+    private Button addButton = new Button();
+    private HorizontalLayout searchLayout = new HorizontalLayout();
     private CrmService service;
+
+    private CompareSnip compareSnip;
+
 
     public ComparisonColumn(CrmService service){
         this.service = service;
         nameTextField.setPlaceholder("Type school name...");
-        addBuutton.setText("Add");
+        addButton.setText("Add");
 
-        HorizontalLayout searchLayout = new HorizontalLayout();
         searchLayout.add(nameTextField);
-        searchLayout.add(addBuutton);
+        searchLayout.add(addButton);
         layout.add(searchLayout);
 
-        addBuutton.addClickListener((ComponentEventListener<ClickEvent<Button>>) buttonClickEvent -> {
-        	layout.removeAll();
-        	layout.add(searchLayout);
-            List<CollegeInfo> colleges = service.getCollegeInfosByName(nameTextField.getValue());
-            if(colleges != null && !colleges.isEmpty()){
-                CompareSnip compareSnip = new CompareSnip(colleges.get(0));
-                layout.add(compareSnip);
-                layout.add(compareSnip.getComparisonContent());
-            }
+        addButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) buttonClickEvent -> {
+            addButtonEventHandler();
         });
 
+    }
+
+    private void addButtonEventHandler(){
+        layout.removeAll();
+        layout.add(searchLayout);
+        List<CollegeInfo> colleges = service.getCollegeInfosByName(nameTextField.getValue(), 1);
+        if(colleges != null && !colleges.isEmpty()){
+            CompareSnip compareSnip = new CompareSnip(colleges.get(0));
+            layout.add(compareSnip);
+            layout.add(compareSnip.getComparisonContent());
+            this.compareSnip = compareSnip;
+
+        }
     }
 
     public VerticalLayout getComparisonContent(){
         return this.layout;
     }
 
+    public void setNameValue(String name){
+        this.nameTextField.setValue(name);
+    }
+
+    protected void clickAddButton(){
+        addButtonEventHandler();
+    }
+
+    public CompareSnip getCompareSnip(){
+        return this.compareSnip;
+    }
 }

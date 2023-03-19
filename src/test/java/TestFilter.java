@@ -16,21 +16,21 @@ public class TestFilter {
 
     @Test
     public void testValidName(){
-        List<CollegeInfo> collegeInfoList = FilterParams.searchName("rose-hulman");
+        List<CollegeInfo> collegeInfoList = FilterParams.searchName("rose-hulman", -1);
         Assert.assertNotNull(collegeInfoList);
         Assert.assertEquals("Terre Haute, IN", collegeInfoList.get(0).getLocation());
     }
 
     @Test
     public void testInvalidName(){
-        List<CollegeInfo> collegeInfoList = FilterParams.searchName("zyxwv");
+        List<CollegeInfo> collegeInfoList = FilterParams.searchName("zyxwv", -1);
         Assert.assertNotNull(collegeInfoList);
         Assert.assertEquals(0, collegeInfoList.size());
     }
 
     @Test
     public void testMultipleNameResults(){
-        List<CollegeInfo> collegeInfoList = FilterParams.searchName("rose");
+        List<CollegeInfo> collegeInfoList = FilterParams.searchName("rose", -1);
         // verify we get results
         Assert.assertNotNull(collegeInfoList);
         // verify we have more than 1 result
@@ -115,7 +115,7 @@ public class TestFilter {
         Assert.assertNotEquals(0, collegeInfoList.size());
 
         // in state cost
-        cost = collegeInfoList.get(0).getIinStateCost();
+        cost = collegeInfoList.get(0).getInStateCost();
         isValid = cost < 14999 && cost > 4999;
         Assert.assertTrue(isValid);
     }
@@ -143,7 +143,7 @@ public class TestFilter {
         Assert.assertNotNull(collegeInfoList);
         Assert.assertNotEquals(0, collegeInfoList.size());
 
-        cost = collegeInfoList.get(0).getIinStateCost();
+        cost = collegeInfoList.get(0).getInStateCost();
         isValid = cost < 14999 && cost > 4999;
         Assert.assertTrue(isValid);
     }

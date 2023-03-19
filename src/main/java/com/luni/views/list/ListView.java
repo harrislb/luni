@@ -85,7 +85,7 @@ public class ListView extends VerticalLayout {
         configureForm();
 
 //        add(collegePics, getToolbar(), getContent());
-        updateList();
+//        updateList();
     }
 
     private void initializeComparisonPage(CrmService service){
@@ -137,7 +137,7 @@ public class ListView extends VerticalLayout {
         List<HorizontalLayout> list = new ArrayList<>();
         HorizontalLayout uniSnaps = new HorizontalLayout();
         uniSnaps.addClassName("uniSnaps");
-        int numAcross = 5;
+        int numAcross = 4;
         int current = 1;
         for(CollegeInfo college : collegeInfos){
             UniSnip uniSnip = new UniSnip(college);
@@ -162,7 +162,7 @@ public class ListView extends VerticalLayout {
            String locSearch = filterLocText.getValue();
            List<CollegeInfo> collegeInfos = new ArrayList<>();
            if(!nameSearch.isEmpty()){
-               collegeInfos = service.getCollegeInfosByName(nameSearch);
+               collegeInfos = service.getCollegeInfosByName(nameSearch, -1);
            }
            else if(!locSearch.isEmpty()){
                collegeInfos = service.getCollegeInfosByLoc(locSearch);
@@ -208,16 +208,16 @@ public class ListView extends VerticalLayout {
         filterText.setPlaceholder("Filter by name...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
-        filterText.addValueChangeListener(e -> updateList());
+//        filterText.addValueChangeListener(e -> updateList());
     	
     	filterLocText.setPlaceholder("Filter by location...");
         filterLocText.setClearButtonVisible(true);
         filterLocText.setValueChangeMode(ValueChangeMode.LAZY);
-        filterLocText.addValueChangeListener(e -> updateList());
+//        filterLocText.addValueChangeListener(e -> updateList());
         
         checkboxSizeGroup.setLabel("Size");
         checkboxSizeGroup.setItems("0-499", "500-999", "1000-4999",
-                "5000-14999", "15000-34999", "35000-54999", "55000+");
+                "5000-14999", "15000-34999", "35000-54999");
         //checkboxSizeGroup.select("Order ID", "Customer");
         checkboxSizeGroup.addThemeVariants(CheckboxGroupVariant.LUMO_VERTICAL);
 
@@ -274,9 +274,9 @@ public class ListView extends VerticalLayout {
         }
     }
 
-    private void updateList() {
-        grid.setItems(service.findAllContacts(filterText.getValue()));
-    }
+//    private void updateList() {
+//        grid.setItems(service.findAllContacts(filterText.getValue()));
+//    }
 
     private HorizontalLayout renderComparisonContent(){
         HorizontalLayout comparisonLayout = new HorizontalLayout();

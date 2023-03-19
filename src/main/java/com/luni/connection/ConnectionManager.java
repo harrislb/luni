@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Value;
 public class ConnectionManager {
 	public static String secretkey;
 
-    public static String API_KEY;
+    public static String API_KEY = "";
+    public static String IMAGE_API_KEY = "";
+    public static String CX_KEY = "";
 
     public static String loadAPI_Key(){
         BufferedReader reader;
+        BufferedReader imageReader;
+        BufferedReader cxReader;
 
         try {
             // TODO will need to implement this on the server side so we can run once we have CICD running.
@@ -26,6 +30,16 @@ public class ConnectionManager {
             API_KEY = line;
             System.out.println("line: " + line);
             line = ConnectionManager.getAPIKey();
+
+//            // set the image API Key
+//            IMAGE_API_KEY = imageReader.readLine();
+//            imageReader.close();
+//
+//            // set the cx API key
+//            CX_KEY = cxReader.readLine();
+//            cxReader.close();
+
+
             return line;
 
         } catch (IOException e) {
