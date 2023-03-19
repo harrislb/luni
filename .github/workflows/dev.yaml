@@ -40,7 +40,7 @@ jobs:
    
     - name: Generate jar
       run: |
-        mvn package -Pproduction
+        mvn -Dsecretkey=${{secrets.API_KEY}} package -Pproduction
 
     - name: Upload jar to s3
       run: |
