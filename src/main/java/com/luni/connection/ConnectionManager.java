@@ -5,7 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class ConnectionManager {
+	public static String secretkey;
 
     public static String API_KEY;
 
@@ -15,11 +18,14 @@ public class ConnectionManager {
         try {
             // TODO will need to implement this on the server side so we can run once we have CICD running.
             // store the API key in a local file for now; do not publish to repo
-            reader = new BufferedReader(new FileReader("./api-key.txt"));
+            System.out.println("THIS IS THE KEY!!!!!!! " + secretkey);
+        	reader = new BufferedReader(new FileReader("./api-key.txt"));
             String line = reader.readLine();
             reader.close();
             // set the API Key
             API_KEY = line;
+            System.out.println("line: " + line);
+            line = ConnectionManager.getAPIKey();
             return line;
 
         } catch (IOException e) {
@@ -49,5 +55,13 @@ public class ConnectionManager {
             }
         }
         return sb.toString();
+    }
+    
+    public static void setApiKey(String key) {
+    	ConnectionManager.secretkey = key;
+    }
+    
+    public static String getAPIKey() {
+    	return ConnectionManager.secretkey;
     }
 }
