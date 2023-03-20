@@ -48,13 +48,26 @@ public class ListView extends VerticalLayout {
         Image img = new Image("images/luni.png", "banner logo");
         img.setWidth("100%");
         add(img);
+
+        HorizontalLayout pageButtonLayout = new HorizontalLayout();
+
+
         //TODO reuse the button so we don't have to garbage collect
         Button button = new Button("Comparison Page!");
         button.addClickListener(clickEvent -> {
             clearPage();
             initializeComparisonPage(service);
         });
-        add(button);
+        pageButtonLayout.add(button);
+
+        Button costComparebutton = new Button("Cost Analysis Page!");
+        costComparebutton.addClickListener(clickEvent -> {
+            clearPage();
+            initializeCostAnalysisPage(service);
+        });
+        pageButtonLayout.add(costComparebutton);
+
+        add(pageButtonLayout);
 
         snapsContainer.setHeightFull();
 
@@ -100,6 +113,19 @@ public class ListView extends VerticalLayout {
         });
         add(button);
         add(renderComparisonContent());
+    }
+
+    private void initializeCostAnalysisPage(CrmService service){
+        Image img = new Image("images/luni.png", "banner logo");
+        img.setWidth("100%");
+        add(img);
+        Button button = new Button("Home Page");
+        button.addClickListener(clickEvent -> {
+            clearPage();
+            initializeHomePage(service);
+
+        });
+        add(button);
     }
 
     private void clearPage(){
