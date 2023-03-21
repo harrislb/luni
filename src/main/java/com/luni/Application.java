@@ -30,8 +30,10 @@ public class Application implements AppShellConfigurator {
 
         }
         System.out.println("arg 0: " + args[0]);
+        String[] key = args[0].split("=");
+        System.out.println("key: " + key[1]);
         
-        ConnectionManager.setApiKey(args[0]);
+        ConnectionManager.setApiKey(key[1]);
         
         SpringApplication.run(Application.class, args);
     }
