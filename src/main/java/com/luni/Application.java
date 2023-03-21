@@ -5,6 +5,9 @@ import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
@@ -32,8 +35,22 @@ public class Application implements AppShellConfigurator {
         System.out.println("arg 0: " + args[0]);
         String[] key = args[0].split("=");
         System.out.println("key: " + key[1]);
+        //String skey = "TESTING";
         
-        ConnectionManager.setApiKey(key[1]);
+
+        try {
+            java.io.InputStream is = Application.class.getResourceAsStream("pom.xml");
+            java.util.Properties p = new Properties();
+			p.load(is);
+	        String skey = p.getProperty("skey");
+	        ConnectionManager.setApiKey(skey);
+	        System.out.println("connection key::: " + ConnectionManager.getAPIKey());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+       
         
         SpringApplication.run(Application.class, args);
     }
