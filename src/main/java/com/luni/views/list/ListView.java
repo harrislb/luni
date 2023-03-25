@@ -126,6 +126,7 @@ public class ListView extends VerticalLayout {
 
         });
         add(button);
+        add(renderSimilarSchoolContent());
     }
 
     private void clearPage(){
@@ -312,6 +313,11 @@ public class ListView extends VerticalLayout {
         comparisonLayout.add(compare1);
         comparisonLayout.add(compare2);
         return comparisonLayout;
+    }
+
+    private VerticalLayout renderSimilarSchoolContent(){
+
+        return new RecommendView();
     }
 
     /**

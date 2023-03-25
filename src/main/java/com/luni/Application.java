@@ -24,16 +24,16 @@ public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) {
    
-        for (String arg : args) {
-
-            System.out.println(arg);
-
-        }
-        System.out.println("arg 0: " + args[0]);
-        String[] key = args[0].split("=");
-        System.out.println("key: " + key[1]);
-        
-        ConnectionManager.setApiKey(key[1]);
+//        for (String arg : args) {
+//
+//            System.out.println(arg);
+//
+//        }
+//        System.out.println("arg 0: " + args[0]);
+//        String[] key = args[0].split("=");
+//        System.out.println("key: " + key[1]);
+//
+//        ConnectionManager.setApiKey(key[1]);
         
         SpringApplication.run(Application.class, args);
     }
