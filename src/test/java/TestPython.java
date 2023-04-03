@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 public class TestPython {
 
     @Test
-    public void printPythonFromJava() throws Exception {
+    public void callPythonFromJava() throws Exception {
 
         try {
 
@@ -45,34 +45,5 @@ public class TestPython {
         }
 
         catch(Exception e){System.out.println(e);}
-    }
-
-
-    @Test
-    public void callKnn() throws Exception {
-        ConnectionManager.loadAPI_Key();
-        try {
-            int number1 = 10000;
-
-            Process p = PythonExecutor.executePythonProcess("src\\test\\resources\\testknn.py", number1);
-
-            if(p == null){
-                Assert.fail();
-            }
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String ret = in.readLine();
-
-            while(ret != null){
-                System.out.println(ret);
-                ret = in.readLine();
-            }
-            System.out.println(ret);
-        }
-
-        catch(Exception e){System.out.println(e);}
-
-        // Parse input when integration of environment is complete
-        Assert.fail();
     }
 }

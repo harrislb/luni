@@ -16,4 +16,19 @@ public class PythonExecutor {
             return null;
         }
     }
+
+    public static Process executePythonProcess(String filePath, String arg1, int arg2){
+        try {
+            ProcessBuilder pb = new ProcessBuilder("python", filePath, arg1, "" + arg2);
+            pb.redirectErrorStream(true);
+            Process p = pb.start();
+
+            return p;
+        }
+
+        catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
 }
