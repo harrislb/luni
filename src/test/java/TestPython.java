@@ -13,7 +13,7 @@ public class TestPython {
 
         try {
 
-            Process p = PythonExecutor.executePythonProcess("src\\test\\resources\\hello.py", 0);
+            Process p = PythonExecutor.executePythonProcess("src/test/resources/hello.py", 0);
 
             if(p == null){
                 Assert.fail();
@@ -33,7 +33,7 @@ public class TestPython {
         try {
             int number1 = 10;
 
-            Process p = PythonExecutor.executePythonProcess("src\\test\\resources\\test2.py", number1);
+            Process p = PythonExecutor.executePythonProcess("src/test/resources/test2.py", number1);
 
             if(p == null){
                 Assert.fail();
