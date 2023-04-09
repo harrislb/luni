@@ -18,9 +18,9 @@ def knn(key, cost):
    #      secret_key = arg
    #   elif opt == '-c':
    #      chosen_cost = arg
-   print ('Cost is ', chosen_cost)
-   print ('Secret key is ', secret_key)
-   print(str(type(chosen_cost)))
+   #print ('Cost is ', chosen_cost)
+   #print ('Secret key is ', secret_key)
+   #print(str(type(chosen_cost)))
 
    chosen_cost = int(chosen_cost)
 
@@ -48,7 +48,7 @@ def create_df_with_api_data(secret_key, chosen_cost):
         #school = testdata["results"[i]["latest"]["school"]
         zipcode = entry['latest']['school']['zip']
         school = entry['latest']['school']['name']
-        print("school: " + school)
+        #print("school: " + school)
         cost = entry['latest']['cost']['tuition']['in_state']
         size = entry['latest']['student']['size']
         location = zipcode
@@ -80,8 +80,8 @@ def return_nearest_neighbors(df, k):
 def get_neighbor_school_names(cost, df, indices, k):
     idx = df.index[df['cost'] == cost]
     row = indices[idx]
-    print(row)
-    print(row[0][0])
+    #print(row)
+    #print(row[0][0])
 
     arr = []
     for i in range(k):

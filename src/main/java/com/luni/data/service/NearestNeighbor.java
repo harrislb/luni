@@ -23,13 +23,17 @@ public class NearestNeighbor {
 
             String value = ret.toString();
 
+            String array = "Error finding nearest neighbor.";
             while(value != null){
+                if(value.startsWith("[")){
+                    array = value;
+                }
                 System.out.println(value);
                 value = in.readLine();
                 ret.append(value);
             }
 
-            return ret.toString();
+            return array;
         }
         catch(NumberFormatException e){
             return "Invalid Cost. No Matches Found.";
