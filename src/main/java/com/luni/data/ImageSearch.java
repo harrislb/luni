@@ -50,12 +50,31 @@ public class ImageSearch {
             con.setRequestMethod("GET");
             con.connect();
             Map<String, Object> map =  ResponseManager.parseJson(con);
+            con.disconnect();
+
 
             imageUrl = ((String)((HashMap)((List)map.get("items")).get(0)).get("link"));
+
+            int i = 1;
+            while(imageUrl.contains("lookaside") && i < 4){
+                url = "https://www.googleapis.com/customsearch/v1?key=" + apiKey + "&cx=" + cx + "&q=" + query + "&searchType=image&num=3";
+
+                // Send HTTP GET request to API endpoint
+                obj = new URL(url);
+                con = (HttpURLConnection) obj.openConnection();
+                con.setRequestMethod("GET");
+                con.connect();
+                map =  ResponseManager.parseJson(con);
+
+                imageUrl = ((String)((HashMap)((List)map.get("items")).get(i)).get("link"));
+                con.disconnect();
+                System.out.println("url: " + imageUrl);
+                i++;
+            }
+
             //  cache image
             imageMap.put(searchText.toLowerCase(), imageUrl);
             System.out.println(searchText.toLowerCase() + ", " + imageUrl);
-            con.disconnect();
 
         }
         catch(Exception e){
