@@ -7,3 +7,26 @@ left: 0px;
 top: 0px;
 
 background: url(luni.png);
+
+html {
+    --lumo-primary-color: green;
+    --lumo-font-family: 'Roboto';
+    --lumo-body-text-color: red;
+  }
+
+.vaadin-text-field {
+    color: green;
+}
+
+vaadin-button {
+    --lumo-primary-text-color: #0f4c5c;
+    --lumo-font-family: 'Apercu';
+}
+  
+vaadin-text-field {
+--lumo-font-family: 'Apercu';
+}
+
+vaadin-checkbox {
+    --lumo-font-family: 'Apercu';
+}
