@@ -132,6 +132,10 @@ public class FilterParams {
                 // TODO use this for image search
                 collegeInfo.setURL(ImageSearch.getImage(name + " main"));
 
+//                if(collegeInfo.getURL().contains("lookaside") || collegeInfo.getURL().equals("")){
+//                    continue;
+//                }
+
                 try{
                     int outOfStateCost = (int) ((HashMap)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(0)).get("latest")).get("cost")).get("tuition")).get("out_of_state");
                     collegeInfo.setOutOfStateCost(outOfStateCost);

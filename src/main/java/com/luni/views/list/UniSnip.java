@@ -24,8 +24,10 @@ public class UniSnip extends VerticalLayout {
 
        collegeImage= new Image(collegeInfo.getURL(), "college img");
 //        collegeImage.setWidth("100%");
+
+
         collegeImage.setWidth("300px");
-        collegeImage.setHeightFull();
+//        collegeImage.setHeightFull();
         add(collegeImage);
 
         locText.setText(collegeInfo.getLocation());

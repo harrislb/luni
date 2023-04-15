@@ -317,7 +317,7 @@ public class ListView extends VerticalLayout {
 
     private VerticalLayout renderSimilarSchoolContent(){
 
-        return new RecommendView();
+        return new RecommendView(service);
     }
 
     /**

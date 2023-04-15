@@ -17,14 +17,15 @@ public class ImageSearch {
 
     private static Map<String, String>  imageMap = parseImageFile();
 
-    private static final boolean USE_IMAGE_API = false;
+    private static final boolean USE_IMAGE_API = true;
 
 
     public static String getImage(String searchText) {
         String imageUrl = "";
 
-        if(imageMap.get(searchText.toLowerCase()) != null){
-            System.out.println("Found url for school : " + searchText);
+        if(imageMap.get(searchText.toLowerCase()) != null && !imageMap.get(searchText.toLowerCase()).contains("lookaside")){
+//            System.out.println("Found url for school : " + searchText);
+//            System.out.println(imageMap.get(searchText.toLowerCase()));
             return imageMap.get(searchText.toLowerCase());
         }
 

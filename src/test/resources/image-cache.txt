@@ -80,3 +80,27 @@ middle tennessee state university main, https://www.wilsontenniscamps.com/wp-con
 university of health sciences and pharmacy in st. louis main, https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=504567885016368
 albany college of pharmacy and health sciences main, https://www.acphs.edu/sites/default/files/styles/infobox_crop/public/images/modules/info_box/_V3A6119.jpg?itok=UDS3LSL0
 roseman university of health sciences main, https://www.roseman.edu/app/uploads/2022/08/Henderson_Campus-500x345.jpg
+benjamin franklin institute of technology main, https://arc-anglerfish-arc2-prod-bostonglobe.s3.amazonaws.com/public/MEDJKBRDHII6TIRWH6DV6WNNWM.jpg
+new england law-boston main, https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=4406748246032069
+boston graduate school of psychoanalysis inc main, https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=100063503685663
+university of health sciences and pharmacy in st. louis main, https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=504567885016368
+appalachian college of pharmacy main, https://www.acp.edu/wp-content/uploads/2020/10/6X4A7617-2560x1105.jpg
+barry university main, http://barryustorage.blob.core.windows.net/assets/img/maps/rideshare-locations.jpg
+andrews university main, https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/St_Andrews_-_University_library.JPG/800px-St_Andrews_-_University_library.JPG
+ottawa university-surprise main, https://www.ottawa.edu/Ottawa/media/ou/Content%20Images/Page%20Heros/Campus-at-Dusk-Hero-Visit-Campus_3.png?ext=.png
+vanderbilt university main, https://cdn.vanderbilt.edu/vu-admissions/vandybloggers-wpcontent/2015/03/12080750/20091029JR006.jpg
+johns hopkins university main, https://api.hub.jhu.edu/factory/sites/default/files/styles/landscape/public/gilman_quad0508.jpg
+babson college main, https://www.babson.edu/media/babson/assets/about-babson/babson-at-a-glance-1920x756.jpg
+harvey mudd college main, https://www.hmc.edu/about/wp-content/uploads/sites/2/2022/11/news-campus-evening.jpg
+jewish theological seminary of america main, https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Jewish_Theological_Seminary_of_America_%2851241367198%29.jpg/220px-Jewish_Theological_Seminary_of_America_%2851241367198%29.jpg
+hobart william smith colleges main, https://www.hws.edu/images/about/tour.jpg
+lincoln trail college main, https://www.iecc.edu/sites/default/files/2020-02/ltc_logo.svg
+tulsa community college main, https://www.tulsacc.edu/sites/default/files/images/tcc-southeast-campus-map.png
+wake forest university main, https://prod.wp.cdn.aws.wfu.edu/sites/251/2022/02/campus-twilight-heroalt2%402x.jpg
+brandeis university main, https://www.brandeis.edu/admissions/visit/images/visit.jpg
+duke university main, https://summersession.duke.edu/sites/summersession.duke.edu/files/styles/2_3_portrait_large/public/images/duke-chapel.jpg?h=c89c2fc5&itok=RztJNxH8
+princeton theological seminary main, https://s3.amazonaws.com/ptsem-edu-assets/content/images/brand/_1200x630_crop_center-center_82_none/PTS-Color-Logo.png
+princeton university main, https://www.princeton.edu//sites/default/files/images/2017/06/20060425_NassauHall_JJ_IMG_5973.jpg
+widener university main, https://www.widener.edu/sites/default/files/2019-06/old-main-rear-from-library-2400x1500.jpg
+clarks summit university main, https://www.clarkssummitu.edu/wp-content/uploads/2022/08/Clarks-Summit-University-Logo.png
+college of saint benedict main, https://www.csbsju.edu/images/CSB%20Archives/1lrg.jpg

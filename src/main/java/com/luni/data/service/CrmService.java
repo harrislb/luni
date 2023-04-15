@@ -132,6 +132,14 @@ public class CrmService {
         return verifyResults(FilterParams.searchACT(min, max));
     }
 
+    public CollegeInfo retrieveCollege(String name){
+        List<CollegeInfo> colleges = FilterParams.searchName(name, 1);
+        if(colleges.size() > 0){
+            return colleges.get(0);
+        }
+        return null;
+    }
+
     public List<CollegeInfo> verifyResults(List<CollegeInfo> list){
         // if no results were found, add one result to notify user none were found
         if(list.size() == 0){
