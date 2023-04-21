@@ -6,8 +6,10 @@ import com.luni.data.service.NearestNeighbor;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.textfield.TextField;
 
 import java.util.ArrayList;
@@ -28,6 +30,10 @@ public class RecommendView extends VerticalLayout {
 
     private CrmService service;
 
+    ProgressBar progressBar = new ProgressBar();
+    Div progressBarLabel = new Div();
+
+
     public RecommendView(CrmService service){
         this.service = service;
         nameTextField.setPlaceholder("Type school name...");
@@ -39,6 +45,13 @@ public class RecommendView extends VerticalLayout {
 
         findSimilarButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) buttonClickEvent -> {
             remove(results);
+
+            progressBar.setIndeterminate(true);
+
+            progressBarLabel.setText("Finding similar schools...");
+            add(progressBarLabel, progressBar);
+
+
             // retrieve college info for given school
             CollegeInfo sourceCollege = service.retrieveCollege(nameTextField.getValue());
 
@@ -66,7 +79,7 @@ public class RecommendView extends VerticalLayout {
 
             }
 
-
+            remove(progressBarLabel, progressBar);
             this.results = new VerticalLayout();
             int totalResults = collegeInfos.size();
             //List<HorizontalLayout> list = new ArrayList<>();
@@ -76,6 +89,8 @@ public class RecommendView extends VerticalLayout {
             for(int i = 0; i < totalResults; i++){
                 CompareSnip cs = new CompareSnip(collegeInfos.get(i));
                 row.add(cs);
+                row.add(cs.getComparisonContent());
+
                 addedToResults = false;
                 if((i+1) % numAcross == 0){
                     //list.add(row);
@@ -92,7 +107,7 @@ public class RecommendView extends VerticalLayout {
 
         this.add(searchLayout);
 
-        VerticalLayout resultLayout = new VerticalLayout();
+
     }
 
 
