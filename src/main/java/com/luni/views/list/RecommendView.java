@@ -9,11 +9,11 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.textfield.TextField;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 
 public class RecommendView extends VerticalLayout {
@@ -30,8 +30,6 @@ public class RecommendView extends VerticalLayout {
 
     private CrmService service;
 
-    ProgressBar progressBar = new ProgressBar();
-    Div progressBarLabel = new Div();
 
 
     public RecommendView(CrmService service){
@@ -43,22 +41,19 @@ public class RecommendView extends VerticalLayout {
         add(searchLayout);
         add(results);
 
+
         findSimilarButton.addClickListener((ComponentEventListener<ClickEvent<Button>>) buttonClickEvent -> {
             remove(results);
 
-            progressBar.setIndeterminate(true);
-
-            progressBarLabel.setText("Finding similar schools...");
-            add(progressBarLabel, progressBar);
-
+            CountDownLatch latch = new CountDownLatch(1);
+            final List<CollegeInfo> collegeInfos = new ArrayList<>();
 
             // retrieve college info for given school
             CollegeInfo sourceCollege = service.retrieveCollege(nameTextField.getValue());
 
-            List<CollegeInfo> collegeInfos = new ArrayList<>();
-
             if(sourceCollege == null){
-                collegeInfos = service.verifyResults(collegeInfos);
+                collegeInfos.clear();
+                collegeInfos.addAll(service.verifyResults(collegeInfos));
             }
             else{
                 System.out.println("Looking for matches for school: " + sourceCollege.getName());
@@ -75,17 +70,21 @@ public class RecommendView extends VerticalLayout {
                     }
                 }
 
-                collegeInfos = service.verifyResults(collegeInfos);
 
+                service.verifyResults(collegeInfos);
+                latch.countDown();
+                System.out.println("counting down the latch");
             }
 
-            remove(progressBarLabel, progressBar);
+
+            System.out.println("remove progress bar");
             this.results = new VerticalLayout();
             int totalResults = collegeInfos.size();
             //List<HorizontalLayout> list = new ArrayList<>();
             HorizontalLayout row = new HorizontalLayout();
             int numAcross = 3;
             boolean addedToResults = false;
+            System.out.println("gather results");
             for(int i = 0; i < totalResults; i++){
                 CompareSnip cs = new CompareSnip(collegeInfos.get(i));
                 row.add(cs);

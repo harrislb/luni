@@ -57,10 +57,15 @@ public class CompareSnip extends UniSnip{
         actLayout.add(act);
         actLayout.add(actValue);
         
-        layout.add(inStateCostLayout);
-        layout.add(outStateCostLayout);
-        layout.add(sizeLayout);
-        layout.add(actLayout);
+//        layout.add(inStateCostLayout);
+//        layout.add(outStateCostLayout);
+//        layout.add(sizeLayout);
+//        layout.add(actLayout);
+
+        add(inStateCostLayout);
+        add(outStateCostLayout);
+        add(sizeLayout);
+        add(actLayout);
         
     }
     public VerticalLayout getComparisonContent(){

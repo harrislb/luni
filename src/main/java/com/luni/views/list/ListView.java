@@ -52,15 +52,14 @@ public class ListView extends VerticalLayout {
         HorizontalLayout pageButtonLayout = new HorizontalLayout();
 
 
-        //TODO reuse the button so we don't have to garbage collect
-        Button button = new Button("Comparison Page!");
+        Button button = new Button("Comparison Page");
         button.addClickListener(clickEvent -> {
             clearPage();
             initializeComparisonPage(service);
         });
         pageButtonLayout.add(button);
 
-        Button costComparebutton = new Button("Cost Analysis Page!");
+        Button costComparebutton = new Button("Cost Analysis Page");
         costComparebutton.addClickListener(clickEvent -> {
             clearPage();
             initializeCostAnalysisPage(service);
@@ -161,13 +160,42 @@ public class ListView extends VerticalLayout {
     }
 
     public static List<HorizontalLayout> toSnaps(List<CollegeInfo> collegeInfos){
-        List<HorizontalLayout> list = new ArrayList<>();
+        final List<HorizontalLayout> list = new ArrayList<>();
         HorizontalLayout uniSnaps = new HorizontalLayout();
         uniSnaps.addClassName("uniSnaps");
         int numAcross = 4;
         int current = 1;
         for(CollegeInfo college : collegeInfos){
             UniSnip uniSnip = new UniSnip(college);
+            uniSnip.addClickListener(new ComponentEventListener<ClickEvent<VerticalLayout>>() {
+                @Override
+                public void onComponentEvent(ClickEvent<VerticalLayout> verticalLayoutClickEvent) {
+                    CompareSnip cs = new CompareSnip(uniSnip.getCollegeInfo());
+                    for(HorizontalLayout layout : list){
+                        int index = layout.indexOf(uniSnip);
+                        if(index != -1){
+                            layout.remove(uniSnip);
+                            layout.addComponentAtIndex(index, cs);
+                            break;
+                        }
+                    }
+
+
+                    cs.addClickListener(new ComponentEventListener<ClickEvent<VerticalLayout>>() {
+                        @Override
+                        public void onComponentEvent(ClickEvent<VerticalLayout> verticalLayoutClickEvent) {
+                            for(HorizontalLayout layout : list) {
+                                int index = layout.indexOf(cs);
+                                if(index != -1){
+                                    layout.remove(cs);
+                                    layout.addComponentAtIndex(index, uniSnip);
+                                }
+                            }
+
+                        }
+                    });
+                }
+            });
             uniSnaps.add(uniSnip);
             if(current % numAcross == 0){
                 list.add(uniSnaps);

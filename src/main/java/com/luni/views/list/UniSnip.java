@@ -14,8 +14,10 @@ public class UniSnip extends VerticalLayout {
     Image collegeImage;
     Text locText = new Text("");
 
-    public UniSnip(CollegeInfo collegeInfo) {
+    private CollegeInfo collegeInfo;
 
+    public UniSnip(CollegeInfo collegeInfo) {
+        this.collegeInfo = collegeInfo;
         //setWidth("");
 
         nameText.setText(collegeInfo.getName());
@@ -27,6 +29,7 @@ public class UniSnip extends VerticalLayout {
 
 
         collegeImage.setWidth("300px");
+        collegeImage.setHeight("300px");
 //        collegeImage.setHeightFull();
         add(collegeImage);
 
@@ -44,6 +47,10 @@ public class UniSnip extends VerticalLayout {
 //
 //        add(collegePics, getToolbar(), getContent());
 //        updateList();
+    }
+
+    public CollegeInfo getCollegeInfo(){
+        return this.collegeInfo;
     }
 
 //    private Component getContent() {
