@@ -137,16 +137,16 @@ public class FilterParams {
 //                }
 
                 try{
-                    int outOfStateCost = (int) ((HashMap)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(0)).get("latest")).get("cost")).get("tuition")).get("out_of_state");
+                    int outOfStateCost = (int) ((HashMap)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(i)).get("latest")).get("cost")).get("tuition")).get("out_of_state");
                     collegeInfo.setOutOfStateCost(outOfStateCost);
-                    int inStateCost = (int) ((HashMap)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(0)).get("latest")).get("cost")).get("tuition")).get("in_state");
+                    int inStateCost = (int) ((HashMap)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(i)).get("latest")).get("cost")).get("tuition")).get("in_state");
                     collegeInfo.setInStateCost(inStateCost);
 
-                    int size = (int)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(0)).get("latest")).get("student")).get("size");
+                    int size = (int)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(i)).get("latest")).get("student")).get("size");
                     collegeInfo.setSize(size);
 
                     // act score can be null
-                    Object act = ((HashMap)((HashMap)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(0)).get("latest")).get("admissions")).get("act_scores")).get("midpoint")).get("cumulative");
+                    Object act = ((HashMap)((HashMap)((HashMap)((HashMap) ((HashMap) ((List) map.get("results")).get(i)).get("latest")).get("admissions")).get("act_scores")).get("midpoint")).get("cumulative");
                     try{
                         int actValue = (int)act;
                         collegeInfo.setACT(actValue);

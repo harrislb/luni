@@ -152,7 +152,8 @@ public class ListView extends VerticalLayout {
             uniSnip.addClickListener(new ComponentEventListener<ClickEvent<VerticalLayout>>() {
                 @Override
                 public void onComponentEvent(ClickEvent<VerticalLayout> verticalLayoutClickEvent) {
-                    CompareSnip cs = new CompareSnip(uniSnip.getCollegeInfo());
+                    CollegeInfo copyCollege = uniSnip.getCollegeInfo();
+                    CompareSnip cs = new CompareSnip(copyCollege);
                     for(HorizontalLayout layout : list){
                         int index = layout.indexOf(uniSnip);
                         if(index != -1){
@@ -171,9 +172,9 @@ public class ListView extends VerticalLayout {
                                 if(index != -1){
                                     layout.remove(cs);
                                     layout.addComponentAtIndex(index, uniSnip);
+                                    break;
                                 }
                             }
-
                         }
                     });
                 }
