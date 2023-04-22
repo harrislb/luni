@@ -2,18 +2,14 @@ package com.luni.views.list;
 
 import com.luni.connection.ConnectionManager;
 import com.luni.data.entity.CollegeInfo;
-import com.luni.data.entity.Contact;
 import com.luni.data.service.CrmService;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -27,7 +23,6 @@ import java.util.List;
 @Route(value = "")
 @PageTitle("College Search | Compare Colleges")
 public class ListView extends VerticalLayout {
-    Grid<Contact> grid = new Grid<>(Contact.class);
     TextField filterText = new TextField();
     TextField filterLocText = new TextField();
     CheckboxGroup<String> checkboxSizeGroup = new CheckboxGroup<>();
@@ -39,9 +34,10 @@ public class ListView extends VerticalLayout {
     List<HorizontalLayout> uniSnaps;
    
 
-    public ListView(CrmService service) {
+    public ListView() {
+        this.service = new CrmService();
         ConnectionManager.loadAPI_Key();
-       initializeHomePage(service);
+        initializeHomePage(service);
     }
 
     private void initializeHomePage(CrmService service){
@@ -84,17 +80,15 @@ public class ListView extends VerticalLayout {
 
 
         this.service = service;
-        this.uniSnaps = getUniSnaps();
-        for(HorizontalLayout layout : this.uniSnaps){
-            snapsContainer.add(layout);
-        }
+//        this.uniSnaps = getUniSnaps();
+//        for(HorizontalLayout layout : this.uniSnaps){
+//            snapsContainer.add(layout);
+//        }
 
         //add(snapsContainer);
         add(renderContent());
         addClassName("list-view");
         setSizeFull();
-        configureGrid();
-        configureForm();
 
 //        add(collegePics, getToolbar(), getContent());
 //        updateList();
@@ -133,31 +127,19 @@ public class ListView extends VerticalLayout {
     }
 
     private Component getContent() {
-        HorizontalLayout content = new HorizontalLayout(grid);
-        content.setFlexGrow(2, grid);
+        HorizontalLayout content = new HorizontalLayout();
+        content.setFlexGrow(2);
         content.setFlexGrow(1);
         content.addClassNames("content");
         content.setSizeFull();
         return content;
     }
 
-    private void configureForm() {
 
-    }
-
-    private void configureGrid() {
-        grid.addClassNames("contact-grid");
-        grid.setSizeFull();
-        grid.setColumns("firstName", "lastName", "email");
-        //grid.addColumn(contact -> contact.getStatus().getName()).setHeader("Status");
-        //grid.addColumn(contact -> contact.getCompany().getName()).setHeader("Company");
-        grid.getColumns().forEach(col -> col.setAutoWidth(true));
-    }
-
-    private List<HorizontalLayout> getUniSnaps() {
-        List<CollegeInfo> colleges = service.getCollegeInfos();
-        return toSnaps(colleges);
-    }
+//    private List<HorizontalLayout> getUniSnaps() {
+//        List<CollegeInfo> colleges = service.getCollegeInfos();
+//        return toSnaps(colleges);
+//    }
 
     public static List<HorizontalLayout> toSnaps(List<CollegeInfo> collegeInfos){
         final List<HorizontalLayout> list = new ArrayList<>();

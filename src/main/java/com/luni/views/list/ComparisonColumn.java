@@ -47,7 +47,7 @@ public class ComparisonColumn {
         if(colleges != null && !colleges.isEmpty()){
             CompareSnip compareSnip = new CompareSnip(colleges.get(0));
             layout.add(compareSnip);
-            layout.add(compareSnip.getComparisonContent());
+//            layout.add(compareSnip.getComparisonContent());
             this.compareSnip = compareSnip;
 
         }

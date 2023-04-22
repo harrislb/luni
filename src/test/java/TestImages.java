@@ -16,9 +16,9 @@ public class TestImages {
         Map<String, String> cache = ImageSearch.parseImageFile();
         Assert.assertNotEquals(0, cache.size());
 
-        Assert.assertEquals(82, cache.size());
+        Assert.assertEquals(180, cache.size());
         String healthSciencesSTLurl = cache.get("university of health sciences and pharmacy in st. louis main");
-        Assert.assertEquals("https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=504567885016368", healthSciencesSTLurl);
+        Assert.assertEquals("https://www.usnews.com/dims4/USNEWS/2817bc4/17177859217/resize/800x540%3E/quality/85/?url=https%3A%2F%2Fmedia.beam.usnews.com%2F5b%2F2433608fb9320b194d2dbe7c76149f%2Fcollege-photo_13084.jpg", healthSciencesSTLurl);
     }
 
     @Test

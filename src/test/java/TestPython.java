@@ -46,4 +46,38 @@ public class TestPython {
 
         catch(Exception e){System.out.println(e);}
     }
+
+    @Test
+    public void callInvalidPythonFromJava() {
+
+        try {
+
+            Process p = PythonExecutor.executePythonProcess("invalid.py", 0);
+
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String ret = in.readLine();
+            String expectedError = "python: can't open file";
+            Assert.assertTrue(ret.startsWith(expectedError));
+        }
+
+        catch(Exception e){System.out.println(e);}
+    }
+
+    @Test
+    public void invalidPythonFileWithArgs()  {
+
+        try {
+            int number1 = 10;
+
+            Process p = PythonExecutor.executePythonProcess("invalid.py", number1 + "", number1);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String ret = in.readLine();
+            String expectedError = "python: can't open file";
+            Assert.assertTrue(ret.startsWith(expectedError));
+        }
+
+        catch(Exception e){System.out.println(e);}
+    }
 }

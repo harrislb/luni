@@ -33,10 +33,13 @@ public class CompareSnip extends UniSnip{
         //add(size);
         //add(sizeValue);
 
-        this.actValue = new Text(collegeInfo.getACT() + "");
-        if(actValue.getText() == "0"){
-            actValue.setText("N/A");
+
+        String updateACT = collegeInfo.getACT() + "";
+        if(updateACT.equals("0")){
+            updateACT = "N/A";
         }
+        this.actValue = new Text(updateACT);
+
         //add(act);
         //add(actValue);
 
@@ -68,9 +71,9 @@ public class CompareSnip extends UniSnip{
         add(actLayout);
         
     }
-    public VerticalLayout getComparisonContent(){
-        return this.layout;
-    }
+//    public VerticalLayout getComparisonContent(){
+//        return this.layout;
+//    }
 
     public CollegeInfo getCollegeInfo(){
         return this.collegeInfo;

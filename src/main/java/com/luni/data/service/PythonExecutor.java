@@ -17,13 +17,11 @@ public class PythonExecutor {
         }
     }
 
-    public static Process executePythonProcess(String filePath, String arg1, int arg2){
+    public static Process executePythonProcess(String filePath, String apiKey, int cost){
         try {
-            ProcessBuilder pb = new ProcessBuilder("python", filePath, arg1, "" + arg2);
+            ProcessBuilder pb = new ProcessBuilder("python", filePath, apiKey, "" + cost);
             pb.redirectErrorStream(true);
-            Process p = pb.start();
-
-            return p;
+            return pb.start();
         }
 
         catch(Exception e){
@@ -32,3 +30,4 @@ public class PythonExecutor {
         }
     }
 }
+
